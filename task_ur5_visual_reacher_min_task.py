@@ -10,6 +10,7 @@ from relod.logger import Logger
 from relod.algo.comm import MODE
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
+from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 from relod.envs.visual_ur5_reacher.configs.ur5_config import config
 from relod.envs.visual_ur5_min_time_reacher.env import VisualReacherMinTimeEnv, MonitorTarget
 from tqdm import tqdm
@@ -40,6 +41,7 @@ def parse_args():
     # environment
     parser.add_argument('--setup', default='Visual-UR5-min-time')
     parser.add_argument('--env', default='ur5', type=str)
+    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi']")
     parser.add_argument('--ur5_ip', default='129.128.159.210', type=str)
     parser.add_argument('--camera_id', default=0, type=int)
     parser.add_argument('--image_width', default=160, type=int)
@@ -120,7 +122,7 @@ def main():
     elif args.mode == 'e':
         mode = MODE.EVALUATION
     else:
-        raise  NotImplementedError()
+        raise NotImplementedError()
 
     if args.device is '':
         args.device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
@@ -174,8 +176,14 @@ def main():
     episode_length_step = int(args.episode_length_time / args.dt)
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
     agent.send_data(args)
-    agent.init_performer(SACRADPerformer, args)
-    agent.init_learner(SACRADLearner, args, agent.performer)
+    if --args.algorithm == 'rad':
+        agent.init_performer(SACRADPerformer, args)
+        agent.init_learner(SACRADLearner, args, agent.performer)
+    elif args.algorithm == 'madi':
+        agent.init_performer(MaDiPerformer, args)
+        agent.init_learner(MaDiLearner, args, agent.performer)
+    else:
+        raise NotImplementedError()
 
     # sync initial weights with remote
     agent.apply_remote_policy(block=True)
@@ -276,7 +284,7 @@ def main():
             image_to_show = image_to_show[:,:,-3:]
             cv2.imwrite(episode_image_dir+f'sub_epi={sub_epi}-epi_step={epi_steps}.png', image_to_show)
 
-        if epi_done: # episode done, save result
+        if epi_done:  # episode done, save result
             returns.append(ret)
             epi_lens.append(epi_steps)
             if mode != MODE.EVALUATION:

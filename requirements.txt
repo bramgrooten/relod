@@ -28,10 +28,11 @@ labmaze==1.0.5
 lockfile==0.12.2
 lxml==4.8.0
 matplotlib==3.2.0
-mkl-fft==1.3.0
-mkl-random==1.1.1
-mkl-service==2.3.0
-mujoco-py==2.0.2.13
+# mkl-fft==1.3.0
+# mkl-random==1.1.1
+# mkl-service==2.3.0
+# mujoco-py==2.0.2.13
+mujoco-py
 networkx==2.5.1
 numpy==1.19.5
 olefile==0.46
@@ -56,12 +57,15 @@ seaborn==0.11.1
 six==1.16.0
 termcolor==1.1.0
 tifffile==2020.9.3
-torch==1.9.0+cu111
-torchaudio==0.9.0
-torchvision==0.10.0+cu111
+# torch==1.9.0+cu111
+# torchaudio==0.9.0
+# torchvision==0.10.0+cu111
 tornado==6.1
 tqdm==4.63.1
 typing-extensions==3.10.0.0
 urllib3==1.26.9
 wcwidth==0.2.5
 zipp==3.6.0
+# with conda:
+# conda install pytorch==1.9.0 torchvision==0.10.0 torchaudio==0.9.0 cudatoolkit=11.3 -c pytorch -c conda-forge
+# conda install libstdcxx-ng  # probably not needed

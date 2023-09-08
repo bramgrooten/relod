@@ -66,7 +66,7 @@ class EncoderModel(nn.Module):
     def __init__(self, image_shape, proprioception_shape, net_params, rad_offset, spatial_softmax=True):
         super().__init__()
 
-        if image_shape[-1] != 0: # use image
+        if image_shape[-1] != 0:  # use image
             c, h, w = image_shape
             self.rad_h = round(rad_offset * h)
             self.rad_w = round(rad_offset * w)
@@ -77,10 +77,10 @@ class EncoderModel(nn.Module):
             else:
                 self.latent_dim = net_params['latent']
             
-            if proprioception_shape[-1] == 0: # no proprioception readings
+            if proprioception_shape[-1] == 0:  # no proprioception readings
                 self.encoder_type = 'pixel'
                 
-            else: # image with proprioception
+            else:  # image with proprioception
                 self.encoder_type = 'multi' 
                 self.latent_dim += proprioception_shape[0]
 
@@ -263,3 +263,37 @@ class CriticModel(nn.Module):
         self.outputs['q2'] = q2s
 
         return q1s, q2s
+
+
+def _get_out_shape(in_shape, layers):
+    x = torch.randn(*in_shape).unsqueeze(0)
+    return layers(x).squeeze(0).shape
+
+
+class MaskerNet(nn.Module):
+    def __init__(self, obs_shape):
+        super().__init__()
+        num_masks = 3  # args.frame_stack
+        num_layers = 3  # args.masker_num_layers
+        assert len(obs_shape) == 3  # (C, H, W): was (9, 84, 84) in DMControl experiments
+        self.img_size = obs_shape[-1]
+        self.layers = [  # removed CenterCrop() layer for now. May be needed later.
+            nn.Conv2d(obs_shape[0] // num_masks, 32, kernel_size=3, stride=1, padding=1, padding_mode='zeros'),
+        ]
+        for _ in range(2, num_layers):
+            self.layers.append(nn.ReLU())
+            self.layers.append(nn.Conv2d(32, 32, 3, stride=1, padding=1, padding_mode='zeros'))
+        self.layers += [nn.ReLU(),
+                        nn.Conv2d(32, 1, 3, stride=1, padding=1, padding_mode='zeros'),
+                        nn.Sigmoid()]
+        self.layers = nn.Sequential(*self.layers)
+        self.apply(weight_init)
+
+        in_shape = (obs_shape[0] // num_masks, obs_shape[1], obs_shape[2])
+        self.out_shape = _get_out_shape(in_shape, self.layers)
+        print('MaskerNet initialized with in_shape:', in_shape, 'out_shape:', self.out_shape)
+
+    def forward(self, x):
+        x = x / 255.
+        return self.layers(x)
+
