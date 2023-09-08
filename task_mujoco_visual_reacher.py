@@ -3,6 +3,7 @@ import argparse
 import time
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADPerformer, SACRADLearner
+from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 import relod.utils as utils
 from relod.envs.mujoco_visual_reacher.env import ReacherWrapper
 from relod.algo.comm import MODE
@@ -42,6 +43,7 @@ def parse_args():
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float)
     # train
+    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi']")
     parser.add_argument('--init_steps', default=1000, type=int)
     parser.add_argument('--env_steps', default=20000, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
@@ -63,6 +65,8 @@ def parse_args():
     parser.add_argument('--discount', default=1., type=float)
     parser.add_argument('--init_temperature', default=0.1, type=float)
     parser.add_argument('--alpha_lr', default=1e-4, type=float)
+    # madi
+    parser.add_argument('--masker_lr', default=1e-3, type=float)
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
@@ -123,8 +127,15 @@ def main():
     episode_length_step = int(args.episode_length_time / args.dt)
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
     agent.send_data(args)
-    agent.init_performer(SACRADPerformer, args)
-    agent.init_learner(SACRADLearner, args, agent.performer)
+
+    if args.algorithm == 'rad':
+        agent.init_performer(SACRADPerformer, args)
+        agent.init_learner(SACRADLearner, args, agent.performer)
+    elif args.algorithm == 'madi':
+        agent.init_performer(MaDiPerformer, args)
+        agent.init_learner(MaDiLearner, args, agent.performer)
+    else:
+        raise NotImplementedError()
 
     # sync initial weights with remote
     agent.apply_remote_policy(block=True)
@@ -178,6 +189,7 @@ def main():
     agent.close()
     env.close()
     print('Train finished')
+
 
 if __name__ == '__main__':
     main()

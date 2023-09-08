@@ -41,7 +41,6 @@ def parse_args():
     # environment
     parser.add_argument('--setup', default='Visual-UR5-min-time')
     parser.add_argument('--env', default='ur5', type=str)
-    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi']")
     parser.add_argument('--ur5_ip', default='129.128.159.210', type=str)
     parser.add_argument('--camera_id', default=0, type=int)
     parser.add_argument('--image_width', default=160, type=int)
@@ -63,6 +62,7 @@ def parse_args():
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float)
     # train
+    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi']")
     parser.add_argument('--init_steps', default=2000, type=int) 
     parser.add_argument('--env_steps', default=100000, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
@@ -84,6 +84,8 @@ def parse_args():
     parser.add_argument('--discount', default=0.99, type=float)
     parser.add_argument('--init_temperature', default=0.1, type=float)
     parser.add_argument('--alpha_lr', default=3e-4, type=float)
+    # madi
+    parser.add_argument('--masker_lr', default=3e-4, type=float)  # was 1e-3 in MaDi work, but 3e-4 is standard here. Can try 1e-3 later
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
@@ -176,7 +178,7 @@ def main():
     episode_length_step = int(args.episode_length_time / args.dt)
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
     agent.send_data(args)
-    if --args.algorithm == 'rad':
+    if args.algorithm == 'rad':
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
     elif args.algorithm == 'madi':
@@ -393,6 +395,7 @@ def run_init_policy_test(agent, args):
     steps_record.close()
     hits_record.close()
     agent.close()
+
 
 if __name__ == '__main__':
     main()

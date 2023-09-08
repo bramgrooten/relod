@@ -9,7 +9,7 @@ import torch.multiprocessing as mp
 
 from relod.algo.sac_rad_buffer import AsyncRadReplayBuffer, RadReplayBuffer
 from relod.algo.rl_agent import BaseLearner, BasePerformer
-from relod.algo.models import ActorModel, CriticModel
+from relod.algo.models import ActorModel, CriticModel, MaskerNet
 
 class MaDiPerformer(BasePerformer):
     def __init__(self, args) -> None:
@@ -18,6 +18,9 @@ class MaDiPerformer(BasePerformer):
 
         if not 'conv' in self._args.net_params:  # no image
             self._args.image_shape = (0, 0, 0)
+
+        self.num_masks = 3  # args.frame_stack (how many frames per obs)
+        self._masker = MaskerNet(self._args.image_shape).to(self._args.device)
 
         self._actor = ActorModel(self._args.image_shape,
                                  self._args.proprioception_shape,
@@ -36,16 +39,27 @@ class MaDiPerformer(BasePerformer):
 
         self.train()
 
+    def apply_mask(self, obs):
+        # obs: tensor shaped as (B, 9, H, W)
+        frames = obs.chunk(self.num_masks, dim=1)  # chunk into num_masks pieces. frames: list of tensors [ (B,3,H,W) , (B,3,H,W) , (B,3,H,W) ]
+        frames_cat = torch.cat(frames, dim=0)  # concat in batch dim. frames_cat: tensor shaped (B*3, 3, H, W)
+        masks_cat = self._masker(frames_cat)  # apply MaskerNet just once, saves 2 forward passes. masks_cat: (B*3, 1, H, W)
+        masks = masks_cat.chunk(self.num_masks, dim=0)  # split the batch dim back into channel dim. masks: list of tensors [ (B,1,H,W) , (B,1,H,W) , (B,1,H,W) ]
+        masked_frames = [m * f for m, f in zip(masks, frames)]  # element-wise multiplication, uses broadcasting over the 3 RGB channels within 1 frame. masked_frames: list of tensors [ (B,3,H,W) , (B,3,H,W) , (B,3,H,W) ]
+        return torch.cat(masked_frames, dim=1)  # concat in channel dim. returns: tensor shaped (B, 9, H, W)
+
     def train(self, is_training=True):
         self._actor.train(is_training)
         self._critic.train(is_training)
         self._critic_target.train(is_training)
+        self._masker.train(is_training)
         self.is_training = is_training
 
     def load_policy_from_file(self, model_dir, step):
         print(f"Loading policy from {model_dir}/{step}")
         self._actor.load_state_dict(torch.load('%s/actor_%s.pt' % (model_dir, step)))
         self._critic.load_state_dict(torch.load('%s/critic_%s.pt' % (model_dir, step)))
+        self._masker.load_state_dict(torch.load('%s/masker_%s.pt' % (model_dir, step)))
 
     def load_policy(self, policy):
         actor_weights = policy['actor']
@@ -56,8 +70,13 @@ class MaDiPerformer(BasePerformer):
         for key in critic_weights:
             critic_weights[key] = torch.from_numpy(critic_weights[key]).to(self._args.device)
 
+        masker_weights = policy['masker']
+        for key in masker_weights:
+            masker_weights[key] = torch.from_numpy(masker_weights[key]).to(self._args.device)
+
         self._actor.load_state_dict(actor_weights)
         self._critic.load_state_dict(critic_weights)
+        self._masker.load_state_dict(masker_weights)
 
     def sample_action(self, ob):
         # sample action for data collection
@@ -68,6 +87,7 @@ class MaDiPerformer(BasePerformer):
                 if image is not None:
                     image = torch.FloatTensor(image).to(self._args.device)
                     image.unsqueeze_(0)
+                    image = self.apply_mask(image)
 
                 if propri is not None:
                     propri = torch.FloatTensor(propri).to(self._args.device)
@@ -84,6 +104,7 @@ class MaDiPerformer(BasePerformer):
 
     def close(self):
         del self
+
 
 class MaDiLearner(BaseLearner):
     def __init__(self, args, performer=None) -> None:
@@ -133,11 +154,12 @@ class MaDiLearner(BaseLearner):
 
         if performer == None:
             performer = MaDiPerformer(args)
-            
+
         self._performer = performer
         self._actor = performer._actor
         self._critic = performer._critic
         self._critic_target = performer._critic_target
+        self._masker = performer._masker
 
         if self._args.load_model > -1:
             self._performer.load_policy_from_file(args.model_dir, args.load_model)
@@ -170,9 +192,14 @@ class MaDiLearner(BaseLearner):
         for key in critic_weights:
             critic_weights[key] = critic_weights[key].cpu().numpy()
 
+        masker_weights = self._masker.state_dict()
+        for key in masker_weights:
+            masker_weights[key] = masker_weights[key].cpu().numpy()
+
         return {
                 'actor': actor_weights,
-                'critic': critic_weights
+                'critic': critic_weights,
+                'masker': masker_weights,
             }
 
     def _init_optimizers(self):
@@ -188,11 +215,16 @@ class MaDiLearner(BaseLearner):
             [self._log_alpha], lr=self._args.alpha_lr, betas=(0.5, 0.999)
         )
 
+        self._masker_optimizer = torch.optim.Adam(
+            self._masker.parameters(), lr=self._args.masker_lr, betas=(0.9, 0.999)
+        )
+
     def _share_memory(self):
         self._actor.share_memory()
         self._critic.share_memory()
         self._critic_target.share_memory()
         self._log_alpha.share_memory_()
+        self._masker.share_memory()
 
     def update_policy(self, step):
         if self._args.async_mode:
@@ -226,11 +258,13 @@ class MaDiLearner(BaseLearner):
 
         critic_loss = torch.mean((current_Q1 - target_Q) ** 2 + (current_Q2 - target_Q) ** 2)
 
-        # Optimize the critic
+        # Optimize the critic and masker
+        self._masker_optimizer.zero_grad()
         self._critic_optimizer.zero_grad()
         critic_loss.backward()
         #torch.nn.utils.clip_grad_norm_(self.critic.parameters(), 1)
         self._critic_optimizer.step()
+        self._masker_optimizer.step()
 
         critic_stats = {
             'train_critic/loss': critic_loss.item()
@@ -240,7 +274,7 @@ class MaDiLearner(BaseLearner):
 
     def _update_actor_and_alpha(self, images, proprioceptions):
         # detach encoder, so we don't update it with the actor loss
-        _, pis, log_pis, log_stds = self._actor(images, proprioceptions ,detach_encoder=True)
+        _, pis, log_pis, log_stds = self._actor(images, proprioceptions, detach_encoder=True)
         actor_Q1, actor_Q2 = self._critic(images, proprioceptions, pis, detach_encoder=True)
 
         actor_Q = torch.min(actor_Q1, actor_Q2)
@@ -288,6 +322,8 @@ class MaDiLearner(BaseLearner):
         if images is not None:
             images = torch.as_tensor(images, device=self._args.device).float()
             next_images = torch.as_tensor(next_images, device=self._args.device).float()
+            images = self._performer.apply_mask(images)
+            next_images = self._performer.apply_mask(next_images)
         if propris is not None:
             propris = torch.as_tensor(propris, device=self._args.device).float()
             next_propris = torch.as_tensor(next_propris, device=self._args.device).float()
@@ -340,6 +376,7 @@ class MaDiLearner(BaseLearner):
     def save_policy_to_file(self, model_dir, step):
         torch.save(self._actor.state_dict(), '%s/actor_%s.pt' % (model_dir, step))
         torch.save(self._critic.state_dict(), '%s/critic_%s.pt' % (model_dir, step))
+        torch.save(self._masker.state_dict(), '%s/masker_%s.pt' % (model_dir, step))
         # torch.save(self._actor_optimizer.state_dict(), '%s/_actor_optimizer_%s.pt' % (model_dir, step))
         # torch.save(self._critic_optimizer.state_dict(), '%s/_critic_optimizer_%s.pt' % (model_dir, step))
         # torch.save(self._log_alpha_optimizer.state_dict(), '%s/_log_alpha_optimizer_%s.pt' % (model_dir, step))
