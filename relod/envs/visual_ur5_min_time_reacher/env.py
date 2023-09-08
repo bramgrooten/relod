@@ -78,6 +78,7 @@ def get_center(image):
     y = -1.0 + y/height*2
     return x, y
 
+
 class VisualReacherMinTimeEnv:
     def __init__(self,
                  setup='Visual-UR5-min-time',
@@ -205,7 +206,6 @@ class VisualReacherMinTimeEnv:
         return self._env.action_space
 
     def reset(self):
-
         obs_dict = self._env.reset()
         image = obs_dict['image']
         prop = obs_dict['joint']
@@ -248,6 +248,27 @@ class VisualReacherMinTimeEnv:
 
     def close(self):
         self._env.close()
+
+
+class VisualReacherEnv(VisualReacherMinTimeEnv):
+    def __init__(self, setup='Visual-UR5-min-time', ip='129.128.159.210', seed=9, camera_id=0, image_width=160, image_height=90, target_type='size', image_history=3, joint_history=1, episode_length=30, dt=0.04, size_tol=0.015, center_tol=0.1, reward_tol=1):
+        super().__init__(setup, ip, seed, camera_id, image_width, image_height, target_type, image_history, joint_history, episode_length, dt, size_tol, center_tol, reward_tol)
+    
+    def step(self, action):
+        assert self._reset
+        obs_dict, _, done, _ = self._env.step(action)
+        image = obs_dict['image']
+        prop = obs_dict['joint']
+        info = {}
+
+        reward = self._compute_reward(image, prop)
+
+        if done:
+            self._reset = False
+            self._env.stop_arm()
+
+        return image, prop, reward, done, info
+
 
 def ranndom_policy_hits_vs_timeout():
     total_steps = 20000
