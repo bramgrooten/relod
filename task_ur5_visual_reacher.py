@@ -1,10 +1,12 @@
 import torch
 import argparse
-import relod.utils as utils
 import time
-import numpy as np
 import cv2
 import os
+import wandb
+
+import numpy as np
+import relod.utils as utils
 
 from relod.logger import Logger
 from relod.algo.comm import MODE
@@ -173,6 +175,17 @@ def main():
     args.action_shape = env.action_space.shape
     args.env_action_space = env.action_space
     args.net_params = config
+
+    # start a new wandb run to track this script
+    wandb.init(
+        # set the wandb project where this run will be logged
+        project="madi",
+        # track hyperparameters and run metadata
+        config=vars(args),
+        name=f"UR5-{args.algorithm}-seed-{args.seed}-batch-{args.batch_size}",
+        entity="gauthamv",
+        mode="online"
+    )
 
     episode_length_step = int(args.episode_length_time / args.dt)
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
