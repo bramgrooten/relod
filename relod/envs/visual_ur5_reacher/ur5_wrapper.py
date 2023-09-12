@@ -1,13 +1,12 @@
 import time
-import utils
 import argparse
 import gym
 
 import numpy as np
 
-from envs.visual_ur5_reacher.reacher_env import ReacherEnv
+from relod.envs.visual_ur5_reacher.reacher_env import ReacherEnv
 from senseact.utils import tf_set_seeds, NormalizedEnv
-
+from relod import utils
 
 def make_env(setup='Visual_UR5',
              ip='129.128.159.210',

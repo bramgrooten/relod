@@ -3,6 +3,7 @@ import json
 import os
 import shutil
 import torch
+import wandb
 #import torchvision
 import numpy as np
 from termcolor import colored
@@ -130,6 +131,7 @@ class Logger(object):
             self._sw.add_histogram(key, histogram, step)
 
     def log(self, key, value, step, n=1):
+        wandb.log({key: value}, step=step)
         assert key.startswith('train') or key.startswith('eval')
         if type(value) == torch.Tensor:
             value = value.item()
