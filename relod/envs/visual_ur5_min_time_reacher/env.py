@@ -10,6 +10,7 @@ import numpy as np
 from tqdm import tqdm
 import torch
 
+
 class MonitorTarget:
     def __init__(self):
         self.radius=7
@@ -42,6 +43,7 @@ class MonitorTarget:
         
         time.sleep(0.032)
 
+
 def get_mask(image):
     image = np.transpose(image, [1,2,0])
     image = image[:,:,-3:]
@@ -56,6 +58,7 @@ def get_mask(image):
     cv2.fillPoly(mask, pts=contours, color=(255, 255, 255))
     
     return mask
+
 
 def get_center(image):
     mask = get_mask(image)
@@ -77,6 +80,7 @@ def get_center(image):
     x = -1.0 + x/width*2
     y = -1.0 + y/height*2
     return x, y
+
 
 class VisualReacherMinTimeEnv:
     def __init__(self,
@@ -307,6 +311,7 @@ def ranndom_policy_hits_vs_timeout():
 
     steps_record.close()
     hits_record.close()
+
 
 if __name__ == '__main__':
     mt = MonitorTarget()
