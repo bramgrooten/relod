@@ -67,7 +67,7 @@ def parse_args():
     parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi']")
     parser.add_argument('--init_steps', default=1000, type=int) 
     parser.add_argument('--env_steps', default=100000, type=int)
-    parser.add_argument('--batch_size', default=256, type=int)
+    parser.add_argument('--batch_size', default=128, type=int)
     parser.add_argument('--sync_mode', default=False, action='store_true')
     parser.add_argument('--max_updates_per_step', default=0.6, type=float)
     parser.add_argument('--update_every', default=50, type=int)
