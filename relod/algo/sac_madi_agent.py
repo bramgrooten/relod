@@ -11,6 +11,7 @@ from relod.algo.sac_rad_buffer import AsyncRadReplayBuffer, RadReplayBuffer
 from relod.algo.rl_agent import BaseLearner, BasePerformer
 from relod.algo.models import ActorModel, CriticModel, MaskerNet
 
+
 class MaDiPerformer(BasePerformer):
     def __init__(self, args) -> None:
         self._args = args

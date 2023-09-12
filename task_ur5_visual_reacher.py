@@ -41,7 +41,7 @@ config = {
 def parse_args():
     parser = argparse.ArgumentParser(description='Local remote visual UR5 Reacher')
     # environment
-    parser.add_argument('--setup', default='Visual-UR5-min-time')
+    parser.add_argument('--setup', default='Visual-UR5-min-time')  # it says min-time here because the screen is setup closer. Actually using dense rewards in this file
     parser.add_argument('--env', default='ur5', type=str)
     parser.add_argument('--ur5_ip', default='129.128.159.210', type=str)
     parser.add_argument('--camera_id', default=0, type=int)
@@ -88,6 +88,7 @@ def parse_args():
     parser.add_argument('--alpha_lr', default=3e-4, type=float)
     # madi
     parser.add_argument('--masker_lr', default=3e-4, type=float)  # was 1e-3 in MaDi work, but 3e-4 is standard here. Can try 1e-3 later
+    parser.add_argument('--save_mask', default=False, action='store_true')
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
