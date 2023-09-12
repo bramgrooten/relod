@@ -69,8 +69,8 @@ def get_center(image):
         y = int(m["m01"] / m["m00"])
 
     cv2.circle(mask, (x, y), 1, (0,0,0), -1)
-    cv2.imshow('mask', mask)
-    cv2.waitKey(1)
+    # cv2.imshow('mask', mask)
+    # cv2.waitKey(1)
 
     width = len(mask[0])
     height = len(mask)
@@ -168,8 +168,8 @@ class VisualReacherMinTimeEnv:
         upper = np.array(upper, dtype="uint8")
 
         mask = cv2.inRange(image, lower, upper)
-        cv2.imshow('', mask)
-        cv2.waitKey(1)
+        # cv2.imshow('', mask)
+        # cv2.waitKey(1)
         
         size_x, size_y = mask.shape
         # reward for reaching task, may not be suitable for tracking

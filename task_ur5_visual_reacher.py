@@ -101,8 +101,8 @@ def parse_args():
     parser.add_argument('--save_model', default=False, action='store_true')
     parser.add_argument('--plot_learning_curve', default=False, action='store_true')
     parser.add_argument('--xtick', default=1200, type=int)
-    parser.add_argument('--display_image', default=True, action='store_true')
-    parser.add_argument('--save_image', default=True, action='store_true')
+    parser.add_argument('--display_image',  default=False, action='store_true')
+    parser.add_argument('--save_image',  default=False, action='store_true')
     parser.add_argument('--save_model_freq', default=10000, type=int)
     parser.add_argument('--load_model', default=-1, type=int)
     parser.add_argument('--device', default='cuda:0', type=str)
@@ -166,10 +166,11 @@ def main():
     mt = MonitorTarget()
     mt.reset_plot()
     image, prop = env.reset()
-    image_to_show = np.transpose(image, [1, 2, 0])
-    image_to_show = image_to_show[:,:,-3:]
-    cv2.imshow('raw', image_to_show)
-    cv2.waitKey(1)
+    if args.display_image:
+        image_to_show = np.transpose(image, [1, 2, 0])
+        image_to_show = image_to_show[:,:,-3:]
+        cv2.imshow('raw', image_to_show)
+        cv2.waitKey(1)
     args.image_shape = env.image_space.shape
     args.proprioception_shape = env.proprioception_space.shape
     args.action_shape = env.action_space.shape
@@ -201,7 +202,7 @@ def main():
         raise NotImplementedError()
 
 
-    input('go?')
+    # input('go?')
 
     # sync initial weights with remote
     agent.apply_remote_policy(block=True)
