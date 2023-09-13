@@ -1,11 +1,16 @@
 import os
 import imageio
+import torch
 import torchvision
 import wandb
 
 
 class VideoRecorder(object):
-    """Video recording class used for logging videos in MuJuCo environments."""
+    """Video recording class used for logging videos in MuJuCo environments.
+
+    not tested for UR5 yet.
+
+    """
     def __init__(self, dir_name, height=90, width=160, camera_id=0, fps=30):
         self.dir_name = dir_name
         self.height = height
@@ -43,26 +48,23 @@ class MaskRecorder(object):
     """Class for the MaDi algorithm to record masks and masked observations."""
     def __init__(self, dir_name, args):
         self.dir_name = dir_name
-        self.save_episode_step_num = 2
         self.algorithm = args.algorithm
+        self._args = args
         self.grey_transform = torchvision.transforms.ToPILImage(mode='L')
         self.num_frames = 3  # args.frame_stack
         self.num_masks = 3  # args.frame_stack
         self.save_all_frames = False  # set to True to save all (3) frames, instead of just the first one
 
-    def init(self, enabled=True):
+    def init(self):
         self.obses = []
-        self.enabled = self.dir_name is not None and enabled
 
-    def record(self, obs, agent, episode_step, training_step, test_env, test_mode):
-        if self.enabled and episode_step == self.save_episode_step_num:
-            if training_step <= 100_000 or training_step % 100_000 == 0:
-                _test_env_name = f'_test_{test_mode}' if test_env else ''
-                obs = agent._obs_to_input(obs)
-                self.save_obs_per_frame(obs, training_step, _test_env_name)
-                if self.algorithm == 'madi':
-                    self.save_masked_obs_per_frame(obs, agent, training_step, test_env, _test_env_name)
-                    self.save_mask_per_frame(obs, agent, training_step, test_env, _test_env_name)
+    def record(self, obs, agent, training_step, test_env, test_mode):
+        obs = torch.as_tensor(obs, device=self._args.device).float()
+        _test_env_name = f'_test_{test_mode}' if test_env else ''
+        self.save_obs_per_frame(obs, training_step, _test_env_name)
+        if self.algorithm == 'madi':
+            self.save_masked_obs_per_frame(obs, agent, training_step, _test_env_name)
+            self.save_mask_per_frame(obs, agent, training_step, _test_env_name)
 
     def save_obs_per_frame(self, obs, training_step, _test_env_name):
         for frame in range(self.num_frames):
@@ -71,27 +73,21 @@ class MaskRecorder(object):
                     obs[0][3 * frame:3 * frame + 3] / 255.,
                     os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{frame}_obs.png'))
 
-    def save_masked_obs_per_frame(self, obs, agent, training_step, test_env, _test_env_name):
-        masked_obs = agent.apply_mask(obs, test_env)
+    def save_masked_obs_per_frame(self, obs, agent, training_step, _test_env_name):
+        masked_obs = agent.performer.apply_mask(obs)
         for frame in range(self.num_frames):
             if frame == 0 or self.save_all_frames:
                 torchvision.utils.save_image(
                     masked_obs[0][3 * frame:3 * frame + 3] / 255.,
-                    os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{frame}_masked_obs.png'))
+                    os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{frame}_maskedobs.png'))
 
-    def save_mask_per_frame(self, obs, agent, training_step, test_env, _test_env_name):
-        # per frame only if we perform frame-wise masking
-        if self.num_masks == 1:
-            mask = agent.masker(obs, test_env=test_env)
-            mask_image = self.grey_transform(mask.squeeze())
-            mask_image.save(os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_mask.png'))
-        else:
-            frames = obs.chunk(self.num_frames, dim=1)
-            for f in range(self.num_frames):
-                if f == 0 or self.save_all_frames:
-                    mask = agent.masker(frames[f], test_env=test_env)
-                    mask_image = self.grey_transform(mask.squeeze())
-                    mask_image.save(os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{f}_mask.png'))
+    def save_mask_per_frame(self, obs, agent, training_step, _test_env_name):
+        frames = obs.chunk(self.num_frames, dim=1)
+        for f in range(self.num_frames):
+            if f == 0 or self.save_all_frames:
+                mask = agent._masker(frames[f])
+                mask_image = self.grey_transform(mask.squeeze())
+                mask_image.save(os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{f}_mask.png'))
         log_mask_stats(mask, training_step, _test_env_name)
 
 

@@ -4,11 +4,10 @@ import time
 import cv2
 import os
 import wandb
-
 import numpy as np
 import relod.utils as utils
-
 from relod.logger import Logger
+from relod.video_rec import MaskRecorder
 from relod.algo.comm import MODE
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
@@ -89,6 +88,7 @@ def parse_args():
     # madi
     parser.add_argument('--masker_lr', default=3e-4, type=float)  # was 1e-3 in MaDi work, but 3e-4 is standard here. Can try 1e-3 later
     parser.add_argument('--save_mask', default=False, action='store_true')
+    parser.add_argument('--save_mask_freq', default=1000, type=int)
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
@@ -180,11 +180,9 @@ def main():
 
     # start a new wandb run to track this script
     wandb.init(
-        # set the wandb project where this run will be logged
         project="madi",
-        # track hyperparameters and run metadata
         config=vars(args),
-        name=f"UR5-{args.algorithm}-seed-{args.seed}-batch-{args.batch_size}",
+        name=f"UR5-{args.algorithm}-seed{args.seed}-batch{args.batch_size}",
         entity="gauthamv",
         mode="online"
     )
@@ -193,12 +191,17 @@ def main():
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
     agent.send_data(args)
     if args.algorithm == 'rad':
+        print("Algorithm: rad")
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
     elif args.algorithm == 'madi':
-        print("madi")
+        print("Algorithm: madi")
         agent.init_performer(MaDiPerformer, args)
         agent.init_learner(MaDiLearner, args, agent.performer)
+        if args.save_mask:
+            args.mask_dir = args.work_dir + '/madi_masks'
+            os.makedirs(args.mask_dir, exist_ok=False)
+            mask_rec = MaskRecorder(args.mask_dir, args)
     else:
         raise NotImplementedError()
 
@@ -252,6 +255,10 @@ def main():
                 if args.display_image:
                     cv2.imshow('raw', image_to_show)
                     cv2.waitKey(1)
+
+            # log the mask
+            if args.algorithm == 'madi' and args.save_mask and total_steps % args.save_mask_freq == 0:
+                mask_rec.record(image, agent, total_steps, test_env=False, test_mode=None)
 
             # select an action
             action = agent.sample_action((image, prop))
