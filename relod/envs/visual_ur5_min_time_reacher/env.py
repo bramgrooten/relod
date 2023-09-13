@@ -12,14 +12,14 @@ import torch
 
 
 class MonitorTarget:
-    def __init__(self):
+    def __init__(self, background='white'):
         self.radius=7
         self.width=160
         self.height=90
         self.margin = 20
         mpl.rcParams['toolbar'] = 'None'
         plt.ion()
-        self.fig = plt.figure()
+        self.fig = plt.figure(facecolor=background)
         plt.subplots_adjust(left=0.0, right=1.0, top=1.0, bottom=0.0)
         self.fig.canvas.toolbar_visible = False
         self.ax = plt.axes(xlim=(0, self.width), ylim=(0, self.height))
@@ -334,8 +334,9 @@ def ranndom_policy_hits_vs_timeout():
 
 
 if __name__ == '__main__':
-    mt = MonitorTarget()
-    while True:        
+    # mt = MonitorTarget()
+    mt = MonitorTarget(background='black')
+    while True:
         mt.reset_plot()
         time.sleep(1)
     ranndom_policy_hits_vs_timeout()

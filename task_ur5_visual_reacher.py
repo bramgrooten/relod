@@ -59,6 +59,7 @@ def parse_args():
     parser.add_argument('--reward_tol', default=2.0, type=float)
     parser.add_argument('--reset_penalty_steps', default=70, type=int)
     parser.add_argument('--reward', default=-1, type=float)
+    parser.add_argument('--background_color', default='white', type=str)
     # replay buffer
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float)
@@ -165,7 +166,7 @@ def main():
     )
 
     utils.set_seed_everywhere(args.seed, None)
-    mt = MonitorTarget()
+    mt = MonitorTarget(args.background_color)
     mt.reset_plot()
     image, prop = env.reset()
     if args.display_image:
