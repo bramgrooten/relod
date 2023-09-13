@@ -108,6 +108,7 @@ def parse_args():
     parser.add_argument('--load_model', default=-1, type=int)
     parser.add_argument('--device', default='cuda:0', type=str)
     parser.add_argument('--lock', default=False, action='store_true')
+    parser.add_argument('--wandb_mode', default='online', type=str, help="Either online, offline, or disabled")
 
     args = parser.parse_args()
     assert args.mode in ['r', 'l', 'rl', 'e']
@@ -184,7 +185,7 @@ def main():
         config=vars(args),
         name=f"UR5-{args.algorithm}-seed{args.seed}-batch{args.batch_size}",
         entity="gauthamv",
-        mode="online"
+        mode=args.wandb_mode,
     )
 
     episode_length_step = int(args.episode_length_time / args.dt)

@@ -60,6 +60,7 @@ class MaskRecorder(object):
 
     def record(self, obs, agent, training_step, test_env, test_mode):
         obs = torch.as_tensor(obs, device=self._args.device).float()
+        obs = obs.unsqueeze(0)
         _test_env_name = f'_test_{test_mode}' if test_env else ''
         self.save_obs_per_frame(obs, training_step, _test_env_name)
         if self.algorithm == 'madi':
@@ -70,7 +71,7 @@ class MaskRecorder(object):
         for frame in range(self.num_frames):
             if frame == 0 or self.save_all_frames:
                 torchvision.utils.save_image(
-                    obs[0][3 * frame:3 * frame + 3] / 255.,
+                    (obs[0][3 * frame:3 * frame + 3] / 255.).flip(0),  # flip because it was doing BGR instead of RGB
                     os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{frame}_obs.png'))
 
     def save_masked_obs_per_frame(self, obs, agent, training_step, _test_env_name):
@@ -78,14 +79,14 @@ class MaskRecorder(object):
         for frame in range(self.num_frames):
             if frame == 0 or self.save_all_frames:
                 torchvision.utils.save_image(
-                    masked_obs[0][3 * frame:3 * frame + 3] / 255.,
+                    (masked_obs[0][3 * frame:3 * frame + 3] / 255.).flip(0),
                     os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{frame}_maskedobs.png'))
 
     def save_mask_per_frame(self, obs, agent, training_step, _test_env_name):
         frames = obs.chunk(self.num_frames, dim=1)
         for f in range(self.num_frames):
             if f == 0 or self.save_all_frames:
-                mask = agent._masker(frames[f])
+                mask = agent.performer._masker(frames[f])
                 mask_image = self.grey_transform(mask.squeeze())
                 mask_image.save(os.path.join(self.dir_name, f'step{training_step}{_test_env_name}_frame{f}_mask.png'))
         log_mask_stats(mask, training_step, _test_env_name)
