@@ -7,12 +7,13 @@
 #done
 
 
-init_seed=62
+init_seed=65
 repeats=3
 
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
     python task_ur5_visual_reacher.py --algorithm 'rad' --background_color 'black' --seed $current_seed
+    current_seed=$((init_seed + i + repeats))
     python task_ur5_visual_reacher.py --algorithm 'madi' --background_color 'black' --save_mask --seed $current_seed
 done
 
