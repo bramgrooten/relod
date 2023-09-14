@@ -174,8 +174,8 @@ class VisualReacherMinTimeEnv:
         upper = np.array(self.bgr_upper, dtype="uint8")
 
         mask = cv2.inRange(image, lower, upper)
-        cv2.imshow('', mask)
-        cv2.waitKey(1)
+        # cv2.imshow('', mask)
+        # cv2.waitKey(1)
         
         size_x, size_y = mask.shape
         # reward for reaching task, may not be suitable for tracking
