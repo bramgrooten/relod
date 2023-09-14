@@ -12,9 +12,9 @@ repeats=3
 
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
-    python task_ur5_visual_reacher.py --algorithm 'rad' --background_color 'black' --seed $current_seed
+    python task_ur5_visual_reacher.py --algorithm 'rad' --background_color 'black' --seed $current_seed --work_dir "/home/bgrooten/code/relod/results/rad_black_bg" --camera_id 1
     current_seed=$((init_seed + i + repeats))
-    python task_ur5_visual_reacher.py --algorithm 'madi' --background_color 'black' --save_mask --seed $current_seed
+    python task_ur5_visual_reacher.py --algorithm 'madi' --background_color 'black' --save_mask --seed $current_seed --work_dir  "/home/bgrooten/code/relod/results/madi_black_bg" --camera_id 1
 done
 
 
