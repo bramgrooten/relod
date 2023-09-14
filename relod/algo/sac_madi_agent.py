@@ -10,6 +10,7 @@ import torch.multiprocessing as mp
 from relod.algo.sac_rad_buffer import AsyncRadReplayBuffer, RadReplayBuffer
 from relod.algo.rl_agent import BaseLearner, BasePerformer
 from relod.algo.models import ActorModel, CriticModel, MaskerNet
+from relod.augmentations import strong_augment
 
 
 class MaDiPerformer(BasePerformer):
@@ -253,6 +254,13 @@ class MaDiLearner(BaseLearner):
                 target_Q = rewards + (self._args.discount * target_V)
             else:
                 target_Q = rewards + ((1.0 - dones) * self._args.discount * target_V)
+
+        if self._args.strong_augment != 'none':
+            images_augm = strong_augment(images, self._args.strong_augment)
+            images = torch.cat([images, images_augm], dim=0)
+            proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
+            actions = torch.cat([actions, actions], dim=0)
+            target_Q = torch.cat([target_Q, target_Q], dim=0)
 
         # get current Q estimates
         current_Q1, current_Q2 = self._critic(images, proprioceptions, actions, detach_encoder=False)

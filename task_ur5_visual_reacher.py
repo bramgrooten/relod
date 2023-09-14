@@ -90,6 +90,7 @@ def parse_args():
     parser.add_argument('--masker_lr', default=3e-4, type=float)  # was 1e-3 in MaDi work, but 3e-4 is standard here. Can try 1e-3 later
     parser.add_argument('--save_mask', default=False, action='store_true')
     parser.add_argument('--save_mask_freq', default=1000, type=int)
+    parser.add_argument('--strong_augment', default='none', type=str, help="Augmentations in ['none', 'conv']")  # maybe more later
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
@@ -116,6 +117,7 @@ def parse_args():
     assert args.reward < 0 and args.reset_penalty_steps >= 0
     args.async_mode = not args.sync_mode
     return args
+
 
 def main():
     args = parse_args()
