@@ -44,44 +44,6 @@ class MonitorTarget:
         time.sleep(0.032)
 
 
-def get_mask(image):
-    image = np.transpose(image, [1,2,0])
-    image = image[:,:,-3:]
-
-    lower = [0, 0, 120]
-    upper = [50, 50, 255]
-    lower = np.array(lower, dtype="uint8")
-    upper = np.array(upper, dtype="uint8")
-
-    mask = cv2.inRange(image, lower, upper)
-    contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    cv2.fillPoly(mask, pts=contours, color=(255, 255, 255))
-    
-    return mask
-
-
-def get_center(image):
-    mask = get_mask(image)
-
-    m = cv2.moments(mask)
-    if math.isclose(m["m00"], 0.0, rel_tol=1e-6, abs_tol=0.0):
-        x = 0
-        y = 0
-    else:
-        x = int(m["m10"] / m["m00"])
-        y = int(m["m01"] / m["m00"])
-
-    cv2.circle(mask, (x, y), 1, (0,0,0), -1)
-    # cv2.imshow('mask', mask)
-    # cv2.waitKey(1)
-
-    width = len(mask[0])
-    height = len(mask)
-    x = -1.0 + x/width*2
-    y = -1.0 + y/height*2
-    return x, y
-
-
 class VisualReacherMinTimeEnv:
     def __init__(self,
                  setup='Visual-UR5-min-time',
@@ -98,6 +60,7 @@ class VisualReacherMinTimeEnv:
                  size_tol=0.015,
                  center_tol=0.1,
                  reward_tol=1.0,
+                 background_color="white"
                 ):
         self._image_width = image_width
         self._image_height = image_height
@@ -138,7 +101,7 @@ class VisualReacherMinTimeEnv:
             rllab_box=False,
             movej_t=2.0,
             delay=0.0,
-            random_state=rand_state
+            random_state=rand_state,
         )
 
         self._env = NormalizedEnv(env)
@@ -146,16 +109,58 @@ class VisualReacherMinTimeEnv:
 
         self._reset = False
 
+        if background_color == "white":
+            self.bgr_lower = [0, 0, 120]
+            self.bgr_upper = [50, 50, 255]
+        elif background_color == "black":
+            self.bgr_lower = [0, 0, 230]
+            self.bgr_upper = [210, 255, 255]
+        else:
+            raise Exception
+
+
+    def get_mask(self, image):
+        image = np.transpose(image, [1,2,0])
+        image = image[:,:,-3:]
+
+        lower = np.array(self.bgr_lower, dtype="uint8")
+        upper = np.array(self.bgr_upper, dtype="uint8")
+
+        mask = cv2.inRange(image, lower, upper)
+        contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        cv2.fillPoly(mask, pts=contours, color=(255, 255, 255))
+        
+        return mask
+
+
+    def get_center(self, image):
+        mask = self.get_mask(image)
+
+        m = cv2.moments(mask)
+        if math.isclose(m["m00"], 0.0, rel_tol=1e-6, abs_tol=0.0):
+            x = 0
+            y = 0
+        else:
+            x = int(m["m10"] / m["m00"])
+            y = int(m["m01"] / m["m00"])
+
+        cv2.circle(mask, (x, y), 1, (0,0,0), -1)
+        # cv2.imshow('mask', mask)
+        # cv2.waitKey(1)
+
+        width = len(mask[0])
+        height = len(mask)
+        x = -1.0 + x/width*2
+        y = -1.0 + y/height*2
+        return x, y
+
     def _compute_target_size(self, image):
-        mask = get_mask(image)
-
+        mask = self.get_mask(image)
         target_size = np.sum(mask/255.) / mask.size
-
         return target_size
 
     def _compute_target_offset(self, image, target_location):
-        (x, y) = get_center(image)
-
+        (x, y) = self.get_center(image)
         return abs(x-target_location[0]), abs(y-target_location[1])
 
     def _compute_reward(self, image, joint):
@@ -165,14 +170,12 @@ class VisualReacherMinTimeEnv:
         """
         image = np.transpose(image, [1,2,0])
         image = image[:, :, -3:]
-        lower = [0, 0, 120]
-        upper = [50, 50, 255]
-        lower = np.array(lower, dtype="uint8")
-        upper = np.array(upper, dtype="uint8")
+        lower = np.array(self.bgr_lower, dtype="uint8")
+        upper = np.array(self.bgr_upper, dtype="uint8")
 
         mask = cv2.inRange(image, lower, upper)
-        # cv2.imshow('', mask)
-        # cv2.waitKey(1)
+        cv2.imshow('', mask)
+        cv2.waitKey(1)
         
         size_x, size_y = mask.shape
         # reward for reaching task, may not be suitable for tracking
@@ -254,8 +257,13 @@ class VisualReacherMinTimeEnv:
 
 
 class VisualReacherEnv(VisualReacherMinTimeEnv):
-    def __init__(self, setup='Visual-UR5-min-time', ip='129.128.159.210', seed=9, camera_id=0, image_width=160, image_height=90, target_type='size', image_history=3, joint_history=1, episode_length=30, dt=0.04, size_tol=0.015, center_tol=0.1, reward_tol=1):
-        super().__init__(setup, ip, seed, camera_id, image_width, image_height, target_type, image_history, joint_history, episode_length, dt, size_tol, center_tol, reward_tol)
+    def __init__(self, setup='Visual-UR5-min-time', ip='129.128.159.210', seed=9, camera_id=0, 
+                 image_width=160, image_height=90, target_type='size', image_history=3, 
+                 joint_history=1, episode_length=30, dt=0.04, size_tol=0.015, 
+                 center_tol=0.1, reward_tol=1, background_color="white"):
+        super().__init__(setup, ip, seed, camera_id, image_width, image_height, target_type, 
+                         image_history, joint_history, episode_length, dt, size_tol, 
+                         center_tol, reward_tol, background_color)
     
     def step(self, action):
         assert self._reset
@@ -339,4 +347,4 @@ if __name__ == '__main__':
     while True:
         mt.reset_plot()
         time.sleep(1)
-    ranndom_policy_hits_vs_timeout()
+    # ranndom_policy_hits_vs_timeout()
