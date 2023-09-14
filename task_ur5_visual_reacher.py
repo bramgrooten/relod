@@ -163,6 +163,7 @@ def main():
         size_tol = args.size_tol,
         center_tol = args.center_tol,
         reward_tol = args.reward_tol,
+        background_color = args.background_color,
     )
 
     utils.set_seed_everywhere(args.seed, None)
