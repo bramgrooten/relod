@@ -9,6 +9,8 @@ from relod.envs.mujoco_visual_reacher.env import ReacherWrapper
 from relod.algo.comm import MODE
 from relod.logger import Logger
 import os
+import wandb
+
 
 config = {
     'conv': [
@@ -66,7 +68,10 @@ def parse_args():
     parser.add_argument('--init_temperature', default=0.1, type=float)
     parser.add_argument('--alpha_lr', default=1e-4, type=float)
     # madi
-    parser.add_argument('--masker_lr', default=1e-3, type=float)
+    parser.add_argument('--masker_lr', default=3e-4, type=float)  # was 1e-3 in MaDi work, but 3e-4 is standard here. Can try 1e-3 later
+    parser.add_argument('--save_mask', default=False, action='store_true')
+    parser.add_argument('--save_mask_freq', default=1000, type=int)
+    parser.add_argument('--strong_augment', default='none', type=str, help="Augmentations in ['none', 'conv']")  # maybe more later
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
@@ -82,8 +87,10 @@ def parse_args():
     parser.add_argument('--lock', default=False, action='store_true')
     parser.add_argument('--save_path', default='', type=str, help="For saving SAC buffer")
     parser.add_argument('--load_path', default='', type=str, help="Path to SAC buffer file")
+    parser.add_argument('--wandb_mode', default='online', type=str, help="Either online, offline, or disabled")
     args = parser.parse_args()
     return args
+
 
 def main():
     args = parse_args()
@@ -123,6 +130,15 @@ def main():
     args.action_shape = env.action_space.shape
     args.net_params = config
     args.env_action_space = env.action_space
+
+    # start a new wandb run to track this script
+    wandb.init(
+        project="madi",
+        config=vars(args),
+        name=f"mujocoReacher-{args.algorithm}-seed{args.seed}-batch{args.batch_size}",
+        entity="gauthamv",
+        mode=args.wandb_mode,
+    )
 
     episode_length_step = int(args.episode_length_time / args.dt)
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
