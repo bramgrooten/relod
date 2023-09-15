@@ -342,8 +342,8 @@ def ranndom_policy_hits_vs_timeout():
 
 
 if __name__ == '__main__':
-    # mt = MonitorTarget()
-    mt = MonitorTarget(background='black')
+    mt = MonitorTarget()
+    # mt = MonitorTarget(background='black')
     while True:
         mt.reset_plot()
         time.sleep(1)
