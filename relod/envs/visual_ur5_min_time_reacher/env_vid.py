@@ -13,7 +13,7 @@ class VideoPlayerWithDot:
             self._get_video_paths()
         else:
             self.video_paths = video_paths
-        self.current_video_idx = 0
+        self.current_video_idx = -1  # Will be incremented to 0 in reset_env()
         self.dot_position = None
         self.radius = 80
         self.margin = 30
@@ -42,6 +42,9 @@ class VideoPlayerWithDot:
             raise ValueError(f'received unknown mode "{self._mode}"')
 
     def reset_env(self):
+        # Cycle to the next video
+        self.current_video_idx = (self.current_video_idx + 1) % len(self.video_paths)
+
         # If cap is already open, release it
         if hasattr(self, 'cap') and self.cap.isOpened():
             self.cap.release()
@@ -62,9 +65,6 @@ class VideoPlayerWithDot:
         scaled_dot_x = int(self.dot_position[0] * (self.screen_width / original_video_width))
         scaled_dot_y = int(self.dot_position[1] * (self.screen_height / original_video_height))
         self.dot_position = (scaled_dot_x, scaled_dot_y)
-
-        # Cycle to the next video
-        self.current_video_idx = (self.current_video_idx + 1) % len(self.video_paths)
 
     def play_frame_with_dot(self):
         # Read frame from video
