@@ -1,3 +1,4 @@
+import os
 import cv2
 import random
 import time
@@ -6,8 +7,12 @@ import numpy as np
 
 
 class VideoPlayerWithDot:
-    def __init__(self, video_paths):
-        self.video_paths = video_paths
+    def __init__(self, video_paths=None, mode='video_hard'):
+        self._mode = mode
+        if video_paths is None:
+            self._get_video_paths()
+        else:
+            self.video_paths = video_paths
         self.current_video_idx = 0
         self.dot_position = None
         self.radius = 80
@@ -26,6 +31,15 @@ class VideoPlayerWithDot:
 
         # Set first environment
         self.reset_env()
+
+    def _get_video_paths(self):
+        video_dir = os.path.join('datasets_augmentation', self._mode)
+        if 'video_easy' in self._mode:
+            self.video_paths = [os.path.join(video_dir, f'video{i}.mp4') for i in range(10)]
+        elif 'video_hard' in self._mode:
+            self.video_paths = [os.path.join(video_dir, f'video{i}.mp4') for i in range(100)]
+        else:
+            raise ValueError(f'received unknown mode "{self._mode}"')
 
     def reset_env(self):
         # If cap is already open, release it
@@ -80,11 +94,9 @@ class VideoPlayerWithDot:
 
 
 if __name__ == "__main__":
-    videos = [
-        '/mnt/c/Users/s136407/Desktop/video17.mp4',
-        # Add more video paths here
-    ]
-    player = VideoPlayerWithDot(videos)
+    # videos = ['/mnt/c/Users/s136407/Desktop/video17.mp4',]
+    mode = 'video_hard'
+    player = VideoPlayerWithDot(mode=mode)
 
     start_time = time.time()
     quit_pressed = False
@@ -93,7 +105,7 @@ if __name__ == "__main__":
         quit_pressed = player.play_frame_with_dot()
 
         # Check if 2 seconds have passed since the last reset
-        if time.time() - start_time >= 2:
+        if time.time() - start_time >= 30:
             player.reset_env()
             start_time = time.time()
 
