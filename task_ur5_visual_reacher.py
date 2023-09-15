@@ -187,7 +187,7 @@ def main():
     wandb.init(
         project="madi",
         config=vars(args),
-        name=f"UR5-{args.algorithm}-seed{args.seed}-batch{args.batch_size}",
+        name=f"UR5-{args.algorithm}-seed{args.seed}-batch{args.batch_size}-{args.description}",
         entity="gauthamv",
         mode=args.wandb_mode,
     )
