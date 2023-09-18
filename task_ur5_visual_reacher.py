@@ -4,8 +4,12 @@ import time
 import cv2
 import os
 import wandb
+import multiprocessing
+
 import numpy as np
 import relod.utils as utils
+import matplotlib.pyplot as plt
+
 from relod.logger import Logger
 from relod.video_rec import MaskRecorder
 from relod.algo.comm import MODE
@@ -14,8 +18,9 @@ from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
 from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 from relod.envs.visual_ur5_reacher.configs.ur5_config import config
 from relod.envs.visual_ur5_min_time_reacher.env import VisualReacherEnv, MonitorTarget
+from relod.envs.visual_ur5_min_time_reacher.env_vid import VideoPlayer
 from tqdm import tqdm
-import matplotlib.pyplot as plt
+
 
 config = {
     
@@ -60,6 +65,9 @@ def parse_args():
     parser.add_argument('--reset_penalty_steps', default=70, type=int)
     parser.add_argument('--reward', default=-1, type=float)
     parser.add_argument('--background_color', default='white', type=str)
+    parser.add_argument('--eval_env_mode', default=None, type=str)
+    parser.add_argument('--train_env_mode', default='clean', type=str, help="Mode in ['clean', 'video_easy_5']")
+
     # replay buffer
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float)
@@ -118,6 +126,14 @@ def parse_args():
     args.async_mode = not args.sync_mode
     return args
 
+def set_one_thread():
+  '''
+  N.B: Pytorch over-allocates resources and hogs CPU, which makes experiments very slow!
+  Set number of threads for pytorch to 1 to avoid this issue. This is a temporary workaround.
+  '''
+  os.environ['OMP_NUM_THREADS'] = '1'
+  os.environ['MKL_NUM_THREADS'] = '1'
+  torch.set_num_threads(1)
 
 def main():
     args = parse_args()
@@ -169,8 +185,17 @@ def main():
     )
 
     utils.set_seed_everywhere(args.seed, None)
-    mt = MonitorTarget(args.background_color)
-    mt.reset_plot()
+
+    if args.train_env_mode == "clean":
+        mt = MonitorTarget(args.background_color)
+        mt.reset_plot()
+    elif args.train_env_mode == "video_easy_5":
+        player = VideoPlayer(mode='video_easy_5')
+        video_process = multiprocessing.Process(target=player.run)
+        video_process.start()
+        env.bgr_lower = [0, 0, 120]
+        env.bgr_upper = [50, 0, 255]
+
     image, prop = env.reset()
     if args.display_image:
         image_to_show = np.transpose(image, [1, 2, 0])
@@ -239,7 +264,11 @@ def main():
             image, prop = env.reset()
             mt.reset_plot() 
         else:
-            mt.reset_plot() 
+            if args.train_env_mode == "clean":
+                mt.reset_plot()
+            elif args.train_env_mode == "video_easy_5":
+                player.switch.value = 1
+
             image, prop = env.reset() 
         agent.send_init_ob((image, prop))
         ret = 0
@@ -278,6 +307,8 @@ def main():
             if mode == MODE.LOCAL_ONLY and stat is not None:
                 for k, v in stat.items():
                     L.log(k, v, total_steps)
+            
+            #### 
 
             image = next_image
             prop = next_prop
@@ -332,6 +363,9 @@ def main():
     agent.save_policy_to_file(args.model_dir, total_steps)
 
     # Clean up
+    if args.train_env_mode == "video_easy_5":
+        player.switch.value = 2
+
     env.reset()
     agent.close()
     env.close()
@@ -344,4 +378,5 @@ def main():
 
 
 if __name__ == '__main__':
+    set_one_thread()
     main()
