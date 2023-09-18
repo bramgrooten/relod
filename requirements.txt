@@ -58,10 +58,9 @@ seaborn==0.11.1
 six==1.16.0
 termcolor==1.1.0
 tifffile==2020.9.3
-torch==1.9.0+cu111
-torchaudio==0.9.0
-torchvision==0.10.0+cu111
--f https://download.pytorch.org/whl/torch_stable.html
+# torch==1.9.0+cu111
+# torchaudio==0.9.0
+# torchvision==0.10.0+cu111
 tornado==6.1
 tqdm==4.63.1
 typing-extensions==3.10.0.0
@@ -69,6 +68,8 @@ urllib3==1.26.9
 wcwidth==0.2.5
 zipp==3.6.0
 wandb
+screeninfo
+## to get pytorch with cuda working:
+# pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
 ## with conda maybe:
-# conda install pytorch==1.9.0 torchvision==0.10.0 torchaudio==0.9.0 cudatoolkit=11.3 -c pytorch -c conda-forge
 # conda install libstdcxx-ng  # probably not needed
