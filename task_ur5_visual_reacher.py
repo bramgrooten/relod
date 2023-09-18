@@ -16,6 +16,7 @@ from relod.algo.comm import MODE
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
 from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
+from relod.algo.sac_svea_agent import SVEALearner, SVEAPerformer
 from relod.envs.visual_ur5_reacher.configs.ur5_config import config
 from relod.envs.visual_ur5_min_time_reacher.env import VisualReacherEnv, MonitorTarget
 from relod.envs.visual_ur5_min_time_reacher.env_vid import VideoPlayer
@@ -72,7 +73,7 @@ def parse_args():
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float)
     # train
-    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi']")
+    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi', 'svea']")
     parser.add_argument('--init_steps', default=1000, type=int) 
     parser.add_argument('--env_steps', default=100000, type=int)
     parser.add_argument('--batch_size', default=128, type=int)
@@ -220,18 +221,20 @@ def main():
     episode_length_step = int(args.episode_length_time / args.dt)
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
     agent.send_data(args)
+    print(f"Algorithm: {args.algorithm}")
     if args.algorithm == 'rad':
-        print("Algorithm: rad")
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
     elif args.algorithm == 'madi':
-        print("Algorithm: madi")
         agent.init_performer(MaDiPerformer, args)
         agent.init_learner(MaDiLearner, args, agent.performer)
         if args.save_mask:
             args.mask_dir = args.work_dir + '/madi_masks'
             os.makedirs(args.mask_dir, exist_ok=False)
             mask_rec = MaskRecorder(args.mask_dir, args)
+    elif args.algorithm == 'svea':
+        agent.init_performer(SVEAPerformer, args)
+        agent.init_learner(SVEALearner, args, agent.performer)
     else:
         raise NotImplementedError()
 

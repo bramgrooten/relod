@@ -3,7 +3,8 @@ import argparse
 import time
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADPerformer, SACRADLearner
-from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
+from relod.algo.sac_madi_agent import MaDiPerformer, MaDiLearner
+from relod.algo.sac_svea_agent import SVEAPerformer, SVEALearner
 import relod.utils as utils
 from relod.envs.mujoco_visual_reacher.env import ReacherWrapper
 from relod.algo.comm import MODE
@@ -45,7 +46,7 @@ def parse_args():
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float)
     # train
-    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi']")
+    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi', 'svea']")
     parser.add_argument('--init_steps', default=1000, type=int)
     parser.add_argument('--env_steps', default=20000, type=int)
     parser.add_argument('--batch_size', default=256, type=int)
@@ -150,6 +151,9 @@ def main():
     elif args.algorithm == 'madi':
         agent.init_performer(MaDiPerformer, args)
         agent.init_learner(MaDiLearner, args, agent.performer)
+    elif args.algorithm == 'svea':
+        agent.init_performer(SVEAPerformer, args)
+        agent.init_learner(SVEALearner, args, agent.performer)
     else:
         raise NotImplementedError()
 
