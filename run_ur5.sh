@@ -7,12 +7,12 @@
 #done
 
 
-init_seed=257
+init_seed=258
 repeats=1
 
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
-    python task_ur5_visual_reacher.py --algorithm 'madi' --seed $current_seed --work_dir "/home/gautham/madi/results/madi" --description "video-bg-madi" --train_env_mode "video_easy_5" --save_mask
+    python task_ur5_visual_reacher.py --algorithm 'madi' --seed $current_seed --work_dir "/home/gautham/madi/results/madi" --description "video-bg-madi" --train_env_mode "video_easy_5" --save_mask --env_steps 1000000
 done
 
 # init_seed=260
