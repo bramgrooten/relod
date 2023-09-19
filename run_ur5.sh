@@ -7,17 +7,25 @@
 #done
 
 
-init_seed=100
-repeats=3
+init_seed=257
+repeats=1
 
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
-    # python task_ur5_visual_reacher.py --algorithm 'rad' --background_color 'black' --seed $current_seed --work_dir "/home/bgrooten/code/relod/results/rad_black_bg" --camera_id 1
-    python task_ur5_visual_reacher.py --algorithm 'rad' --background_color 'white' --seed $current_seed --work_dir "/home/gautham/madi/results/no_rad" --rad_offset 0 --camera_id 1 --description "-no-rad"
-    current_seed=$((init_seed + i + repeats))
-    # python task_ur5_visual_reacher.py --algorithm 'madi' --background_color 'black' --save_mask --seed $current_seed --work_dir  "/home/bgrooten/code/relod/results/madi_black_bg" --camera_id 1
-    python task_ur5_visual_reacher.py --algorithm 'madi' --seed $current_seed --camera_id 1 --save_mask --strong_augment conv --work_dir "/home/gautham/madi/results/madi_augmented" --description "conv-augmented-madi"
-done
+    python task_ur5_visual_reacher.py --algorithm 'madi' --seed $current_seed --work_dir "/home/gautham/madi/results/madi" --description "video-bg-madi" --train_env_mode "video_easy_5" --save_mask
 done
 
+# init_seed=260
+
+# for ((i=0; i<$repeats; i++)); do
+#     current_seed=$((init_seed + i))
+#     python task_ur5_visual_reacher.py --algorithm 'rad' --seed $current_seed --work_dir "/home/gautham/madi/results/sac_rad" --description "video-bg-sac-rad" --train_env_mode "video_easy_5"
+# done
+
+# init_seed=265
+
+# for ((i=0; i<$repeats; i++)); do
+#     current_seed=$((init_seed + i))
+#     python task_ur5_visual_reacher.py --algorithm 'rad' --seed $current_seed --work_dir "/home/gautham/madi/results/sac_only" --rad_offset 0 --description "video-bg-sac-only" --train_env_mode "video_easy_5"
+# done
 

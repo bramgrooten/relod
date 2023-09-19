@@ -1,0 +1,1014 @@
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+| train | E: 645 | S: 96750 | D: 6.0 s | R: 115.4043 | BR: 0.2232 | ALOSS: -41.2539 | ENT: 0.6681 | CLOSS: 31.0296 | NUM: 30911
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.060062408447265625!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052765607833862305 since the last observation, 0.012765607833862304 more than allowed
+Warning: Image received is delayed by: 0.056175947189331055!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.049089908599853516 since the last observation, 0.009089908599853515 more than allowed
+Warning: Image received is delayed by: 0.04375886917114258!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05462527275085449 since the last observation, 0.014625272750854491 more than allowed
+Warning: Image received is delayed by: 0.09982490539550781!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05578184127807617 since the last observation, 0.01578184127807617 more than allowed
+Warning: Image received is delayed by: 0.04775238037109375!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054645538330078125 since the last observation, 0.014645538330078124 more than allowed
+| train | E: 646 | S: 96900 | D: 6.1 s | R: 149.1468 | BR: 0.2295 | ALOSS: -40.8394 | ENT: 0.5573 | CLOSS: 24.0758 | NUM: 30959
+Resetting
+Reset done
+Update 31000 took 0.1752s to update the model
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+Warning: Image received is delayed by: 0.04317164421081543!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05423712730407715 since the last observation, 0.014237127304077148 more than allowed
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+| train | E: 647 | S: 97050 | D: 6.0 s | R: 9.4648 | BR: 0.2182 | ALOSS: -41.4368 | ENT: 0.5753 | CLOSS: 21.7871 | NUM: 31007
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.05289888381958008!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05114889144897461 since the last observation, 0.011148891448974609 more than allowed
+Warning: Image received is delayed by: 0.043202877044677734!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05119514465332031 since the last observation, 0.011195144653320312 more than allowed
+Warning: Image received is delayed by: 0.0912325382232666!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05319809913635254 since the last observation, 0.013198099136352538 more than allowed
+Warning: Image received is delayed by: 0.04502296447753906!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051865339279174805 since the last observation, 0.011865339279174804 more than allowed
+Warning: Image received is delayed by: 0.10107111930847168!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05098247528076172 since the last observation, 0.010982475280761718 more than allowed
+Warning: Image received is delayed by: 0.058870792388916016!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052994489669799805 since the last observation, 0.012994489669799804 more than allowed
+Warning: Image received is delayed by: 0.05520486831665039!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05273914337158203 since the last observation, 0.01273914337158203 more than allowed
+Warning: Image received is delayed by: 0.04337024688720703!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05512642860412598 since the last observation, 0.015126428604125976 more than allowed
+| train | E: 648 | S: 97200 | D: 6.1 s | R: 158.1567 | BR: 0.2189 | ALOSS: -40.9057 | ENT: 0.7024 | CLOSS: 35.0179 | NUM: 31055
+Resetting
+Reset done
+Update 31100 took 0.1675s to update the model
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+| train | E: 649 | S: 97350 | D: 6.0 s | R: 0.0208 | BR: 0.2324 | ALOSS: -41.9634 | ENT: 0.5962 | CLOSS: 31.7530 | NUM: 31103
+Resetting
+Reset done
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+Warning: Image received is delayed by: 0.04572439193725586!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054856061935424805 since the last observation, 0.014856061935424804 more than allowed
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+Warning: Image received is delayed by: 0.050095319747924805!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05133843421936035 since the last observation, 0.01133843421936035 more than allowed
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+| train | E: 650 | S: 97500 | D: 6.0 s | R: 41.8698 | BR: 0.2372 | ALOSS: -42.0616 | ENT: 0.7011 | CLOSS: 19.7986 | NUM: 31152
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.06122279167175293!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04904580116271973 since the last observation, 0.009045801162719726 more than allowed
+Warning: Image received is delayed by: 0.10924148559570312!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05199480056762695 since the last observation, 0.011994800567626952 more than allowed
+Warning: Image received is delayed by: 0.0412900447845459!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05340385437011719 since the last observation, 0.013403854370117187 more than allowed
+Warning: Image received is delayed by: 0.08926081657409668!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0513920783996582 since the last observation, 0.011392078399658202 more than allowed
+Warning: Image received is delayed by: 0.04930996894836426!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05179429054260254 since the last observation, 0.011794290542602538 more than allowed
+Warning: Image received is delayed by: 0.045717477798461914!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04960322380065918 since the last observation, 0.009603223800659179 more than allowed
+Warning: Image received is delayed by: 0.041574954986572266!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.055288076400756836 since the last observation, 0.015288076400756835 more than allowed
+Warning: Image received is delayed by: 0.0895838737487793!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05220341682434082 since the last observation, 0.01220341682434082 more than allowed
+Warning: Image received is delayed by: 0.045295000076293945!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05245661735534668 since the last observation, 0.012456617355346679 more than allowed
+Warning: Image received is delayed by: 0.04957723617553711!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05460858345031738 since the last observation, 0.014608583450317382 more than allowed
+Warning: Image received is delayed by: 0.07768774032592773!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04957985877990723 since the last observation, 0.009579858779907226 more than allowed
+Warning: Image received is delayed by: 0.1257474422454834!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05364823341369629 since the last observation, 0.013648233413696288 more than allowed
+Warning: Image received is delayed by: 0.17370033264160156!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050942182540893555 since the last observation, 0.010942182540893554 more than allowed
+Warning: Image received is delayed by: 0.22968769073486328!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05212068557739258 since the last observation, 0.012120685577392577 more than allowed
+Warning: Image received is delayed by: 0.2776660919189453!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0489349365234375 since the last observation, 0.0089349365234375 more than allowed
+Warning: Image received is delayed by: 0.33367276191711426!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051720619201660156 since the last observation, 0.011720619201660155 more than allowed
+Warning: Image received is delayed by: 0.38173580169677734!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05417370796203613 since the last observation, 0.014173707962036132 more than allowed
+Warning: Image received is delayed by: 0.43764424324035645!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05241250991821289 since the last observation, 0.01241250991821289 more than allowed
+Warning: Image received is delayed by: 0.05322456359863281!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05112457275390625 since the last observation, 0.01112457275390625 more than allowed
+Update 31200 took 0.1664s to update the model
+Warning: Image received is delayed by: 0.04846763610839844!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05611228942871094 since the last observation, 0.016112289428710937 more than allowed
+| train | E: 651 | S: 97650 | D: 6.3 s | R: 98.5824 | BR: 0.2237 | ALOSS: -41.5339 | ENT: 0.5996 | CLOSS: 42.0320 | NUM: 31199
+Resetting
+Reset done
+| train | E: 652 | S: 97800 | D: 6.0 s | R: 21.3680 | BR: 0.2297 | ALOSS: -42.2730 | ENT: 0.6063 | CLOSS: 27.0004 | NUM: 31247
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.07988166809082031!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050794363021850586 since the last observation, 0.010794363021850585 more than allowed
+Warning: Image received is delayed by: 0.06803083419799805!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04919600486755371 since the last observation, 0.00919600486755371 more than allowed
+Warning: Image received is delayed by: 0.11603999137878418!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05319714546203613 since the last observation, 0.013197145462036132 more than allowed
+Warning: Image received is delayed by: 0.17208123207092285!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0498049259185791 since the last observation, 0.0098049259185791 more than allowed
+Warning: Image received is delayed by: 0.059565067291259766!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04919600486755371 since the last observation, 0.00919600486755371 more than allowed
+Warning: Image received is delayed by: 0.10750341415405273!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053305864334106445 since the last observation, 0.013305864334106444 more than allowed
+Warning: Image received is delayed by: 0.07531452178955078!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05107307434082031 since the last observation, 0.011073074340820312 more than allowed
+Warning: Image received is delayed by: 0.1233208179473877!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04887795448303223 since the last observation, 0.008877954483032226 more than allowed
+Warning: Image received is delayed by: 0.059459686279296875!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05259299278259277 since the last observation, 0.012592992782592773 more than allowed
+Warning: Image received is delayed by: 0.10741877555847168!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04814648628234863 since the last observation, 0.008146486282348632 more than allowed
+Warning: Image received is delayed by: 0.15547680854797363!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05317425727844238 since the last observation, 0.013174257278442382 more than allowed
+Warning: Image received is delayed by: 0.21150541305541992!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0503232479095459 since the last observation, 0.010323247909545898 more than allowed
+Warning: Image received is delayed by: 0.2595396041870117!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0515294075012207 since the last observation, 0.011529407501220702 more than allowed
+Warning: Image received is delayed by: 0.31544947624206543!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05004715919494629 since the last observation, 0.010047159194946288 more than allowed
+Warning: Image received is delayed by: 0.07991456985473633!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05245327949523926 since the last observation, 0.012453279495239257 more than allowed
+Warning: Image received is delayed by: 0.04749798774719238!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05378246307373047 since the last observation, 0.013782463073730468 more than allowed
+Warning: Image received is delayed by: 0.09547734260559082!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05122995376586914 since the last observation, 0.01122995376586914 more than allowed
+Warning: Image received is delayed by: 0.1514725685119629!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05033516883850098 since the last observation, 0.010335168838500976 more than allowed
+Warning: Image received is delayed by: 0.04133105278015137!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05430316925048828 since the last observation, 0.01430316925048828 more than allowed
+Warning: Image received is delayed by: 0.09734797477722168!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05094504356384277 since the last observation, 0.010945043563842773 more than allowed
+Warning: Image received is delayed by: 0.14533233642578125!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04975700378417969 since the last observation, 0.009757003784179687 more than allowed
+Warning: Image received is delayed by: 0.20125341415405273!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0496978759765625 since the last observation, 0.0096978759765625 more than allowed
+Warning: Image received is delayed by: 0.24927186965942383!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052462100982666016 since the last observation, 0.012462100982666015 more than allowed
+Warning: Image received is delayed by: 0.29735422134399414!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05036354064941406 since the last observation, 0.010363540649414062 more than allowed
+Warning: Image received is delayed by: 0.06061291694641113!
+outside of angle bound on joints [4]
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05405259132385254 since the last observation, 0.014052591323852538 more than allowed
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+Warning: Image received is delayed by: 0.056693077087402344!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05339479446411133 since the last observation, 0.013394794464111327 more than allowed
+Warning: Image received is delayed by: 0.052300453186035156!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054952383041381836 since the last observation, 0.014952383041381835 more than allowed
+Warning: Image received is delayed by: 0.05177593231201172!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04940342903137207 since the last observation, 0.00940342903137207 more than allowed
+Warning: Image received is delayed by: 0.0573270320892334!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052983760833740234 since the last observation, 0.012983760833740234 more than allowed
+Warning: Image received is delayed by: 0.05183005332946777!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05124616622924805 since the last observation, 0.011246166229248046 more than allowed
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+Warning: Image received is delayed by: 0.06037330627441406!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05351614952087402 since the last observation, 0.013516149520874023 more than allowed
+Update 31300 took 0.1742s to update the model
+Warning: Image received is delayed by: 0.04872560501098633!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05334043502807617 since the last observation, 0.013340435028076171 more than allowed
+outside of angle bound on joints [4]
+Warning: Image received is delayed by: 0.05970191955566406!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05048418045043945 since the last observation, 0.010484180450439452 more than allowed
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+Warning: Image received is delayed by: 0.05674600601196289!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051802635192871094 since the last observation, 0.011802635192871093 more than allowed
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+Warning: Image received is delayed by: 0.05641794204711914!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05446457862854004 since the last observation, 0.014464578628540038 more than allowed
+| train | E: 653 | S: 97950 | D: 6.4 s | R: 0.0000 | BR: 0.2334 | ALOSS: -41.7403 | ENT: 0.9150 | CLOSS: 36.0561 | NUM: 31296
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.046926021575927734!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05176353454589844 since the last observation, 0.011763534545898437 more than allowed
+| train | E: 654 | S: 98100 | D: 6.0 s | R: 0.0000 | BR: 0.2312 | ALOSS: -41.8314 | ENT: 0.7015 | CLOSS: 31.0477 | NUM: 31345
+Resetting
+6388.340395689011: Hiccup of 0.85ms overhead between UR packets)
+Reset done
+Update 31400 took 0.1655s to update the model
+| train | E: 655 | S: 98250 | D: 6.0 s | R: 38.2925 | BR: 0.2239 | ALOSS: -42.1331 | ENT: 0.6572 | CLOSS: 28.5347 | NUM: 31391
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.07152843475341797!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053466081619262695 since the last observation, 0.013466081619262694 more than allowed
+Warning: Image received is delayed by: 0.05934548377990723!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05265974998474121 since the last observation, 0.01265974998474121 more than allowed
+Warning: Image received is delayed by: 0.047486066818237305!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05461478233337402 since the last observation, 0.014614782333374023 more than allowed
+Warning: Image received is delayed by: 0.04999828338623047!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05503106117248535 since the last observation, 0.01503106117248535 more than allowed
+Warning: Image received is delayed by: 0.04546713829040527!
+outside of angle bound on joints [1]
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05328202247619629 since the last observation, 0.013282022476196288 more than allowed
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+Warning: Image received is delayed by: 0.06230425834655762!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05361032485961914 since the last observation, 0.01361032485961914 more than allowed
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+Warning: Image received is delayed by: 0.05196714401245117!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05150723457336426 since the last observation, 0.011507234573364257 more than allowed
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [1, 3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+Warning: Image received is delayed by: 0.04769587516784668!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05470418930053711 since the last observation, 0.014704189300537109 more than allowed
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3, 4]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+| train | E: 656 | S: 98400 | D: 6.1 s | R: 41.0562 | BR: 0.2241 | ALOSS: -41.5207 | ENT: 0.7624 | CLOSS: 21.4986 | NUM: 31439
+Resetting
+Reset done
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+Update 31500 took 0.1686s to update the model
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+| train | E: 657 | S: 98550 | D: 6.0 s | R: 99.6049 | BR: 0.2245 | ALOSS: -42.1474 | ENT: 0.7214 | CLOSS: 29.3026 | NUM: 31487
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.058155059814453125!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05437469482421875 since the last observation, 0.01437469482421875 more than allowed
+Warning: Image received is delayed by: 0.046807289123535156!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05259847640991211 since the last observation, 0.012598476409912109 more than allowed
+Warning: Image received is delayed by: 0.042954444885253906!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054556846618652344 since the last observation, 0.014556846618652343 more than allowed
+Warning: Image received is delayed by: 0.09897565841674805!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054151296615600586 since the last observation, 0.014151296615600585 more than allowed
+Warning: Image received is delayed by: 0.06296014785766602!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05687737464904785 since the last observation, 0.01687737464904785 more than allowed
+Warning: Image received is delayed by: 0.1190030574798584!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05309414863586426 since the last observation, 0.013094148635864257 more than allowed
+Warning: Image received is delayed by: 0.16690945625305176!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.055878400802612305 since the last observation, 0.015878400802612304 more than allowed
+Warning: Image received is delayed by: 0.22290253639221191!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05008959770202637 since the last observation, 0.010089597702026366 more than allowed
+Warning: Image received is delayed by: 0.06233930587768555!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05636715888977051 since the last observation, 0.016367158889770507 more than allowed
+Warning: Image received is delayed by: 0.11835861206054688!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.049920082092285156 since the last observation, 0.009920082092285155 more than allowed
+Warning: Image received is delayed by: 0.07505393028259277!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05058765411376953 since the last observation, 0.01058765411376953 more than allowed
+Warning: Image received is delayed by: 0.04302692413330078!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05441164970397949 since the last observation, 0.014411649703979491 more than allowed
+Warning: Image received is delayed by: 0.05474352836608887!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054251670837402344 since the last observation, 0.014251670837402343 more than allowed
+| train | E: 658 | S: 98700 | D: 6.2 s | R: 34.6186 | BR: 0.2295 | ALOSS: -42.3304 | ENT: 0.7966 | CLOSS: 38.5041 | NUM: 31535
+Resetting
+Reset done
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1, 4]
+outside of angle bound on joints [1, 4]
+outside of angle bound on joints [1, 4]
+outside of angle bound on joints [1, 4]
+outside of angle bound on joints [1, 4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+Update 31600 took 0.1779s to update the model
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [1, 4]
+outside of angle bound on joints [1, 4]
+outside of angle bound on joints [1, 4]
+| train | E: 659 | S: 98850 | D: 6.0 s | R: 0.0000 | BR: 0.2328 | ALOSS: -42.3092 | ENT: 1.0255 | CLOSS: 36.5955 | NUM: 31584
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.054001808166503906!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05424094200134277 since the last observation, 0.014240942001342773 more than allowed
+| train | E: 660 | S: 99000 | D: 6.0 s | R: 205.1747 | BR: 0.2201 | ALOSS: -41.6737 | ENT: 0.8550 | CLOSS: 39.1534 | NUM: 31630
+Resetting
+6444.666376590729: Hiccup of 0.83ms overhead between UR packets)
+Reset done
+Warning: Image received is delayed by: 0.05441093444824219!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05374479293823242 since the last observation, 0.013744792938232421 more than allowed
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+Warning: Image received is delayed by: 0.0741415023803711!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05398988723754883 since the last observation, 0.013989887237548827 more than allowed
+Warning: Image received is delayed by: 0.1301414966583252!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051253557205200195 since the last observation, 0.011253557205200194 more than allowed
+Warning: Image received is delayed by: 0.17818570137023926!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050601959228515625 since the last observation, 0.010601959228515624 more than allowed
+Warning: Image received is delayed by: 0.23410296440124512!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04885125160217285 since the last observation, 0.00885125160217285 more than allowed
+Warning: Image received is delayed by: 0.28212428092956543!
+outside of angle bound on joints [1]
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053981781005859375 since the last observation, 0.013981781005859374 more than allowed
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+Warning: Image received is delayed by: 0.0491025447845459!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05083203315734863 since the last observation, 0.010832033157348632 more than allowed
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+Warning: Image received is delayed by: 0.053975820541381836!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05730104446411133 since the last observation, 0.017301044464111327 more than allowed
+Warning: Image received is delayed by: 0.057863712310791016!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05356335639953613 since the last observation, 0.013563356399536132 more than allowed
+| train | E: 661 | S: 99150 | D: 6.1 s | R: 1.3693 | BR: 0.2265 | ALOSS: -42.3047 | ENT: 0.8036 | CLOSS: 38.6310 | NUM: 31679
+Resetting
+Update 31700 took 0.1771s to update the model
+Reset done
+Warning: Image received is delayed by: 0.041376590728759766!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.055328369140625 since the last observation, 0.015328369140625 more than allowed
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [3]
+outside of angle bound on joints [1]
+| train | E: 662 | S: 99300 | D: 6.0 s | R: 33.2896 | BR: 0.2253 | ALOSS: -42.3124 | ENT: 0.5844 | CLOSS: 30.7335 | NUM: 31726
+Resetting
+Reset done
+Warning: Image received is delayed by: 0.048581600189208984!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05596590042114258 since the last observation, 0.015965900421142577 more than allowed
+Warning: Image received is delayed by: 0.06113886833190918!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04922819137573242 since the last observation, 0.009228191375732421 more than allowed
+Warning: Image received is delayed by: 0.06112790107727051!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05318427085876465 since the last observation, 0.013184270858764648 more than allowed
+Warning: Image received is delayed by: 0.05293679237365723!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05069756507873535 since the last observation, 0.01069756507873535 more than allowed
+Warning: Image received is delayed by: 0.05328702926635742!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05019259452819824 since the last observation, 0.010192594528198241 more than allowed
+Warning: Image received is delayed by: 0.0407109260559082!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05286669731140137 since the last observation, 0.012866697311401366 more than allowed
+Warning: Image received is delayed by: 0.08869028091430664!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051661014556884766 since the last observation, 0.011661014556884765 more than allowed
+Warning: Image received is delayed by: 0.06093716621398926!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050553083419799805 since the last observation, 0.010553083419799804 more than allowed
+Warning: Image received is delayed by: 0.04051947593688965!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05337667465209961 since the last observation, 0.013376674652099609 more than allowed
+Warning: Image received is delayed by: 0.08846020698547363!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05173921585083008 since the last observation, 0.011739215850830077 more than allowed
+Warning: Image received is delayed by: 0.05584216117858887!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0561671257019043 since the last observation, 0.016167125701904296 more than allowed
+Warning: Image received is delayed by: 0.052739858627319336!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05111336708068848 since the last observation, 0.011113367080688476 more than allowed
+Warning: Image received is delayed by: 0.04459500312805176!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05056166648864746 since the last observation, 0.01056166648864746 more than allowed
+Warning: Image received is delayed by: 0.06492733955383301!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05224776268005371 since the last observation, 0.01224776268005371 more than allowed
+Warning: Image received is delayed by: 0.12094545364379883!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05058908462524414 since the last observation, 0.01058908462524414 more than allowed
+Warning: Image received is delayed by: 0.04055595397949219!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05108356475830078 since the last observation, 0.01108356475830078 more than allowed
+Warning: Image received is delayed by: 0.04485654830932617!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05179738998413086 since the last observation, 0.011797389984130859 more than allowed
+Warning: Image received is delayed by: 0.04085183143615723!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05393171310424805 since the last observation, 0.013931713104248046 more than allowed
+Warning: Image received is delayed by: 0.08884549140930176!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050635337829589844 since the last observation, 0.010635337829589843 more than allowed
+Warning: Image received is delayed by: 0.05318737030029297!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04947495460510254 since the last observation, 0.009474954605102538 more than allowed
+Warning: Image received is delayed by: 0.10118961334228516!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050080299377441406 since the last observation, 0.010080299377441405 more than allowed
+Warning: Image received is delayed by: 0.06069517135620117!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05301976203918457 since the last observation, 0.01301976203918457 more than allowed
+Warning: Image received is delayed by: 0.10865569114685059!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04966592788696289 since the last observation, 0.00966592788696289 more than allowed
+Warning: Image received is delayed by: 0.06501531600952148!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05265331268310547 since the last observation, 0.012653312683105468 more than allowed
+Warning: Image received is delayed by: 0.06064033508300781!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05552554130554199 since the last observation, 0.015525541305541991 more than allowed
+Warning: Image received is delayed by: 0.11666631698608398!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.048949480056762695 since the last observation, 0.008949480056762694 more than allowed
+Warning: Image received is delayed by: 0.16458845138549805!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0506441593170166 since the last observation, 0.0106441593170166 more than allowed
+Warning: Image received is delayed by: 0.2206284999847412!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05426311492919922 since the last observation, 0.014263114929199218 more than allowed
+Warning: Image received is delayed by: 0.26862430572509766!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052687883377075195 since the last observation, 0.012687883377075194 more than allowed
+Warning: Image received is delayed by: 0.06431961059570312!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05511140823364258 since the last observation, 0.015111408233642577 more than allowed
+Warning: Image received is delayed by: 0.12027478218078613!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04993176460266113 since the last observation, 0.009931764602661132 more than allowed
+Warning: Image received is delayed by: 0.1682753562927246!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05253291130065918 since the last observation, 0.012532911300659179 more than allowed
+Warning: Image received is delayed by: 0.06434321403503418!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0523371696472168 since the last observation, 0.012337169647216796 more than allowed
+Warning: Image received is delayed by: 0.11234450340270996!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.049688100814819336 since the last observation, 0.009688100814819335 more than allowed
+Warning: Image received is delayed by: 0.056572914123535156!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054546356201171875 since the last observation, 0.014546356201171874 more than allowed
+Warning: Image received is delayed by: 0.10459160804748535!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05166316032409668 since the last observation, 0.011663160324096679 more than allowed
+Warning: Image received is delayed by: 0.16057682037353516!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04955935478210449 since the last observation, 0.009559354782104491 more than allowed
+Warning: Image received is delayed by: 0.040070295333862305!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0505831241607666 since the last observation, 0.0105831241607666 more than allowed
+Warning: Image received is delayed by: 0.06058382987976074!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05177497863769531 since the last observation, 0.011774978637695312 more than allowed
+Warning: Image received is delayed by: 0.11661553382873535!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04995417594909668 since the last observation, 0.009954175949096679 more than allowed
+Warning: Image received is delayed by: 0.16454195976257324!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.047508955001831055 since the last observation, 0.007508955001831054 more than allowed
+Warning: Image received is delayed by: 0.21255970001220703!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054773569107055664 since the last observation, 0.014773569107055663 more than allowed
+Warning: Image received is delayed by: 0.04415273666381836!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052206993103027344 since the last observation, 0.012206993103027343 more than allowed
+Warning: Image received is delayed by: 0.10014986991882324!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04998517036437988 since the last observation, 0.009985170364379882 more than allowed
+Warning: Image received is delayed by: 0.14812946319580078!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05304551124572754 since the last observation, 0.013045511245727538 more than allowed
+Warning: Image received is delayed by: 0.20418000221252441!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04942893981933594 since the last observation, 0.009428939819335937 more than allowed
+Warning: Image received is delayed by: 0.2521510124206543!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05211687088012695 since the last observation, 0.012116870880126952 more than allowed
+Warning: Image received is delayed by: 0.3001372814178467!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04841470718383789 since the last observation, 0.00841470718383789 more than allowed
+Warning: Image received is delayed by: 0.34816503524780273!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053457021713256836 since the last observation, 0.013457021713256835 more than allowed
+Warning: Image received is delayed by: 0.07700133323669434!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05344343185424805 since the last observation, 0.013443431854248046 more than allowed
+Warning: Image received is delayed by: 0.07320356369018555!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05325770378112793 since the last observation, 0.013257703781127929 more than allowed
+Warning: Image received is delayed by: 0.12121009826660156!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05144476890563965 since the last observation, 0.011444768905639648 more than allowed
+Warning: Image received is delayed by: 0.04489493370056152!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05429792404174805 since the last observation, 0.014297924041748046 more than allowed
+Warning: Image received is delayed by: 0.04089999198913574!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053221702575683594 since the last observation, 0.013221702575683593 more than allowed
+Warning: Image received is delayed by: 0.08894991874694824!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05453991889953613 since the last observation, 0.014539918899536132 more than allowed
+Warning: Image received is delayed by: 0.1449289321899414!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05408072471618652 since the last observation, 0.014080724716186523 more than allowed
+Warning: Image received is delayed by: 0.20092105865478516!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054399967193603516 since the last observation, 0.014399967193603515 more than allowed
+Warning: Image received is delayed by: 0.25688982009887695!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0519869327545166 since the last observation, 0.0119869327545166 more than allowed
+Warning: Image received is delayed by: 0.304919958114624!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05028176307678223 since the last observation, 0.010281763076782226 more than allowed
+Warning: Image received is delayed by: 0.3609464168548584!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05153155326843262 since the last observation, 0.011531553268432616 more than allowed
+Warning: Image received is delayed by: 0.0481264591217041!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0515897274017334 since the last observation, 0.011589727401733398 more than allowed
+Warning: Image received is delayed by: 0.05269885063171387!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053371429443359375 since the last observation, 0.013371429443359374 more than allowed
+Warning: Image received is delayed by: 0.07291102409362793!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05605745315551758 since the last observation, 0.016057453155517577 more than allowed
+Warning: Image received is delayed by: 0.1288607120513916!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05068778991699219 since the last observation, 0.010687789916992187 more than allowed
+Warning: Image received is delayed by: 0.1848912239074707!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05320429801940918 since the last observation, 0.013204298019409179 more than allowed
+Warning: Image received is delayed by: 0.04017043113708496!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04996204376220703 since the last observation, 0.00996204376220703 more than allowed
+Warning: Image received is delayed by: 0.060430049896240234!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0562286376953125 since the last observation, 0.0162286376953125 more than allowed
+Warning: Image received is delayed by: 0.0567929744720459!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051303863525390625 since the last observation, 0.011303863525390624 more than allowed
+Warning: Image received is delayed by: 0.0447077751159668!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05262613296508789 since the last observation, 0.01262613296508789 more than allowed
+Warning: Image received is delayed by: 0.04045414924621582!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05215048789978027 since the last observation, 0.012150487899780273 more than allowed
+Warning: Image received is delayed by: 0.0884397029876709!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0516512393951416 since the last observation, 0.0116512393951416 more than allowed
+Warning: Image received is delayed by: 0.14438080787658691!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054726362228393555 since the last observation, 0.014726362228393554 more than allowed
+Warning: Image received is delayed by: 0.2004387378692627!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05315971374511719 since the last observation, 0.013159713745117187 more than allowed
+Warning: Image received is delayed by: 0.2484149932861328!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05131173133850098 since the last observation, 0.011311731338500976 more than allowed
+Warning: Image received is delayed by: 0.3044428825378418!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.049300193786621094 since the last observation, 0.009300193786621093 more than allowed
+Warning: Image received is delayed by: 0.35243964195251465!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05329394340515137 since the last observation, 0.013293943405151366 more than allowed
+Warning: Image received is delayed by: 0.40840601921081543!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04994845390319824 since the last observation, 0.009948453903198241 more than allowed
+Warning: Image received is delayed by: 0.4564208984375!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052861928939819336 since the last observation, 0.012861928939819335 more than allowed
+Warning: Image received is delayed by: 0.5123872756958008!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.049630165100097656 since the last observation, 0.009630165100097655 more than allowed
+Warning: Image received is delayed by: 0.560415506362915!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0513761043548584 since the last observation, 0.011376104354858398 more than allowed
+Warning: Image received is delayed by: 0.6084060668945312!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05175423622131348 since the last observation, 0.011754236221313476 more than allowed
+Warning: Image received is delayed by: 0.6644279956817627!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05198097229003906 since the last observation, 0.011980972290039062 more than allowed
+Warning: Image received is delayed by: 0.7124290466308594!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05087590217590332 since the last observation, 0.01087590217590332 more than allowed
+Warning: Image received is delayed by: 0.7683875560760498!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05175638198852539 since the last observation, 0.01175638198852539 more than allowed
+Warning: Image received is delayed by: 0.8164718151092529!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.049729347229003906 since the last observation, 0.009729347229003905 more than allowed
+Warning: Image received is delayed by: 0.8724310398101807!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05170392990112305 since the last observation, 0.011703929901123046 more than allowed
+Warning: Image received is delayed by: 0.9203951358795166!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050765037536621094 since the last observation, 0.010765037536621093 more than allowed
+Warning: Image received is delayed by: 0.9683921337127686!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05243396759033203 since the last observation, 0.01243396759033203 more than allowed
+Warning: Image received is delayed by: 1.0244672298431396!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05123710632324219 since the last observation, 0.011237106323242187 more than allowed
+Warning: Image received is delayed by: 1.0723521709442139!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05119585990905762 since the last observation, 0.011195859909057616 more than allowed
+Warning: Image received is delayed by: 1.1284570693969727!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.048409223556518555 since the last observation, 0.008409223556518554 more than allowed
+Warning: Image received is delayed by: 1.17637038230896!
+| train | E: 663 | S: 99450 | D: 7.1 s | R: 4.1351 | BR: 0.2266 | ALOSS: -42.0802 | ENT: 0.8942 | CLOSS: 23.7941 | NUM: 31777
+Resetting
+Update 31800 took 0.1783s to update the model
+Reset done
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [1]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+| train | E: 664 | S: 99600 | D: 6.0 s | R: 0.0018 | BR: 0.2452 | ALOSS: -43.1272 | ENT: 0.7348 | CLOSS: 36.3012 | NUM: 31826
+Resetting
+Reset done
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+outside of angle bound on joints [4]
+| train | E: 665 | S: 99750 | D: 6.0 s | R: 80.7000 | BR: 0.2275 | ALOSS: -42.1588 | ENT: 0.9459 | CLOSS: 26.1189 | NUM: 31873
+Resetting
+Update 31900 took 0.1682s to update the model
+Reset done
+Warning: Image received is delayed by: 0.04046368598937988!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05232644081115723 since the last observation, 0.012326440811157226 more than allowed
+Warning: Image received is delayed by: 0.0884406566619873!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05034780502319336 since the last observation, 0.010347805023193359 more than allowed
+Warning: Image received is delayed by: 0.1444687843322754!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05252528190612793 since the last observation, 0.012525281906127929 more than allowed
+Warning: Image received is delayed by: 0.06751418113708496!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05101275444030762 since the last observation, 0.011012754440307616 more than allowed
+Warning: Image received is delayed by: 0.12353134155273438!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05126070976257324 since the last observation, 0.011260709762573241 more than allowed
+Warning: Image received is delayed by: 0.17156744003295898!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0523676872253418 since the last observation, 0.012367687225341796 more than allowed
+Warning: Image received is delayed by: 0.22753572463989258!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05136895179748535 since the last observation, 0.01136895179748535 more than allowed
+Warning: Image received is delayed by: 0.275545597076416!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0537416934967041 since the last observation, 0.0137416934967041 more than allowed
+Warning: Image received is delayed by: 0.3315272331237793!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.048467159271240234 since the last observation, 0.008467159271240234 more than allowed
+Warning: Image received is delayed by: 0.379502534866333!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053255558013916016 since the last observation, 0.013255558013916015 more than allowed
+Warning: Image received is delayed by: 0.4355506896972656!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05570101737976074 since the last observation, 0.01570101737976074 more than allowed
+Warning: Image received is delayed by: 0.06746077537536621!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05166363716125488 since the last observation, 0.011663637161254882 more than allowed
+Warning: Image received is delayed by: 0.11546134948730469!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05575728416442871 since the last observation, 0.01575728416442871 more than allowed
+Warning: Image received is delayed by: 0.07917022705078125!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05408215522766113 since the last observation, 0.014082155227661132 more than allowed
+Warning: Image received is delayed by: 0.13517022132873535!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051201581954956055 since the last observation, 0.011201581954956054 more than allowed
+Warning: Image received is delayed by: 0.1831820011138916!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.048159122467041016 since the last observation, 0.008159122467041015 more than allowed
+Warning: Image received is delayed by: 0.23112058639526367!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05030202865600586 since the last observation, 0.010302028656005859 more than allowed
+Warning: Image received is delayed by: 0.2870903015136719!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051982879638671875 since the last observation, 0.011982879638671874 more than allowed
+Warning: Image received is delayed by: 0.33516979217529297!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04881715774536133 since the last observation, 0.008817157745361327 more than allowed
+Warning: Image received is delayed by: 0.3831217288970947!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05037999153137207 since the last observation, 0.01037999153137207 more than allowed
+Warning: Image received is delayed by: 0.4391136169433594!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.050824642181396484 since the last observation, 0.010824642181396484 more than allowed
+Warning: Image received is delayed by: 0.4871385097503662!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04948234558105469 since the last observation, 0.009482345581054687 more than allowed
+Warning: Image received is delayed by: 0.5351364612579346!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05205225944519043 since the last observation, 0.012052259445190429 more than allowed
+Warning: Image received is delayed by: 0.5910782814025879!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051876068115234375 since the last observation, 0.011876068115234374 more than allowed
+Warning: Image received is delayed by: 0.6391363143920898!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05019521713256836 since the last observation, 0.010195217132568359 more than allowed
+Warning: Image received is delayed by: 0.6871161460876465!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05194425582885742 since the last observation, 0.011944255828857421 more than allowed
+Warning: Image received is delayed by: 0.7430837154388428!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04778909683227539 since the last observation, 0.00778909683227539 more than allowed
+Warning: Image received is delayed by: 0.7911205291748047!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05244803428649902 since the last observation, 0.012448034286499023 more than allowed
+Warning: Image received is delayed by: 0.8470578193664551!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05246543884277344 since the last observation, 0.012465438842773437 more than allowed
+Warning: Image received is delayed by: 0.8951375484466553!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0493016242980957 since the last observation, 0.009301624298095702 more than allowed
+Warning: Image received is delayed by: 0.9430797100067139!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04980301856994629 since the last observation, 0.009803018569946288 more than allowed
+Warning: Image received is delayed by: 0.9990689754486084!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052820444107055664 since the last observation, 0.012820444107055663 more than allowed
+Warning: Image received is delayed by: 1.0471014976501465!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.049729347229003906 since the last observation, 0.009729347229003905 more than allowed
+Warning: Image received is delayed by: 1.0951220989227295!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05269026756286621 since the last observation, 0.01269026756286621 more than allowed
+Warning: Image received is delayed by: 1.151108980178833!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0480046272277832 since the last observation, 0.008004627227783202 more than allowed
+Warning: Image received is delayed by: 1.1990151405334473!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053990840911865234 since the last observation, 0.013990840911865234 more than allowed
+Warning: Image received is delayed by: 1.2550978660583496!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05339312553405762 since the last observation, 0.013393125534057616 more than allowed
+Warning: Image received is delayed by: 1.3110523223876953!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05100369453430176 since the last observation, 0.011003694534301757 more than allowed
+Warning: Image received is delayed by: 1.359050989151001!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04965043067932129 since the last observation, 0.009650430679321288 more than allowed
+Warning: Image received is delayed by: 1.4070355892181396!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05212807655334473 since the last observation, 0.012128076553344726 more than allowed
+Warning: Image received is delayed by: 1.4630913734436035!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05283403396606445 since the last observation, 0.012834033966064452 more than allowed
+Warning: Image received is delayed by: 1.5110690593719482!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053104400634765625 since the last observation, 0.013104400634765624 more than allowed
+Warning: Image received is delayed by: 1.5671744346618652!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05216073989868164 since the last observation, 0.01216073989868164 more than allowed
+Warning: Image received is delayed by: 1.6231715679168701!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053968191146850586 since the last observation, 0.013968191146850585 more than allowed
+Warning: Image received is delayed by: 1.671091079711914!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.0540468692779541 since the last observation, 0.0140468692779541 more than allowed
+Warning: Image received is delayed by: 1.7271592617034912!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05446004867553711 since the last observation, 0.014460048675537109 more than allowed
+Warning: Image received is delayed by: 1.783146858215332!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05208730697631836 since the last observation, 0.012087306976318359 more than allowed
+Warning: Image received is delayed by: 1.8391389846801758!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05385541915893555 since the last observation, 0.013855419158935546 more than allowed
+Warning: Image received is delayed by: 1.8870761394500732!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05315065383911133 since the last observation, 0.013150653839111327 more than allowed
+Warning: Image received is delayed by: 1.9430906772613525!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05570626258850098 since the last observation, 0.015706262588500976 more than allowed
+Warning: Image received is delayed by: 1.9990878105163574!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.052124738693237305 since the last observation, 0.012124738693237304 more than allowed
+Warning: Image received is delayed by: 2.0551488399505615!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05280566215515137 since the last observation, 0.012805662155151366 more than allowed
+Warning: Image received is delayed by: 2.1030349731445312!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05414867401123047 since the last observation, 0.014148674011230468 more than allowed
+Warning: Image received is delayed by: 2.159041404724121!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05342531204223633 since the last observation, 0.013425312042236327 more than allowed
+Warning: Image received is delayed by: 2.2150585651397705!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04854893684387207 since the last observation, 0.00854893684387207 more than allowed
+Warning: Image received is delayed by: 2.2630367279052734!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.054669857025146484 since the last observation, 0.014669857025146484 more than allowed
+Warning: Image received is delayed by: 2.3190112113952637!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05188107490539551 since the last observation, 0.011881074905395507 more than allowed
+Warning: Image received is delayed by: 2.3670012950897217!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053794145584106445 since the last observation, 0.013794145584106444 more than allowed
+Warning: Image received is delayed by: 2.4230875968933105!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04928326606750488 since the last observation, 0.009283266067504882 more than allowed
+Warning: Image received is delayed by: 2.4710886478424072!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05041646957397461 since the last observation, 0.010416469573974609 more than allowed
+Warning: Image received is delayed by: 2.519052505493164!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05299067497253418 since the last observation, 0.012990674972534179 more than allowed
+Warning: Image received is delayed by: 2.5750834941864014!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05232501029968262 since the last observation, 0.012325010299682616 more than allowed
+Warning: Image received is delayed by: 2.6309733390808105!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.048302412033081055 since the last observation, 0.008302412033081054 more than allowed
+Warning: Image received is delayed by: 2.6790482997894287!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051224708557128906 since the last observation, 0.011224708557128905 more than allowed
+Warning: Image received is delayed by: 2.7270195484161377!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05133557319641113 since the last observation, 0.011335573196411132 more than allowed
+Warning: Image received is delayed by: 0.06078982353210449!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05286121368408203 since the last observation, 0.01286121368408203 more than allowed
+Warning: Image received is delayed by: 0.04295945167541504!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05034518241882324 since the last observation, 0.010345182418823241 more than allowed
+Warning: Image received is delayed by: 0.09887933731079102!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05251574516296387 since the last observation, 0.012515745162963866 more than allowed
+Warning: Image received is delayed by: 0.14694809913635254!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05027008056640625 since the last observation, 0.01027008056640625 more than allowed
+Warning: Image received is delayed by: 0.20287871360778809!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.04896235466003418 since the last observation, 0.008962354660034179 more than allowed
+Warning: Image received is delayed by: 0.25087904930114746!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05098438262939453 since the last observation, 0.01098438262939453 more than allowed
+Warning: Image received is delayed by: 0.29898929595947266!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05106663703918457 since the last observation, 0.01106663703918457 more than allowed
+Warning: Image received is delayed by: 0.3469114303588867!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05332493782043457 since the last observation, 0.01332493782043457 more than allowed
+Warning: Image received is delayed by: 0.4028635025024414!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.048320770263671875 since the last observation, 0.008320770263671874 more than allowed
+Warning: Image received is delayed by: 0.4508802890777588!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.051032304763793945 since the last observation, 0.011032304763793944 more than allowed
+Warning: Image received is delayed by: 0.5069308280944824!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05126142501831055 since the last observation, 0.011261425018310546 more than allowed
+Warning: Image received is delayed by: 0.05521035194396973!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.053974151611328125 since the last observation, 0.013974151611328124 more than allowed
+Warning: Image received is delayed by: 0.0514986515045166!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05281543731689453 since the last observation, 0.01281543731689453 more than allowed
+Warning: Image received is delayed by: 0.04716897010803223!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05747413635253906 since the last observation, 0.01747413635253906 more than allowed
+Warning: Image received is delayed by: 0.059497833251953125!
+WARNING:root:Agent has over-run its allocated dt, it has been 0.05184316635131836 since the last observation, 0.011843166351318359 more than allowed
+| train | E: 666 | S: 99900 | D: 7.0 s | R: 6.3113 | BR: 0.2330 | ALOSS: -43.3795 | ENT: 0.5725 | CLOSS: 36.4792 | NUM: 31923
+Resetting
+Reset done
+Resetting
+Reset done
+Finished in 6493.067759990692s
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:           train/actor_loss ██████▇▇▇▇▇▇▇▇▆▆▆▆▆▅▅▅▅▅▅▅▄▄▄▄▃▃▃▂▃▃▂▂▁▁
+wandb:         train/batch_reward ▂▂▂▂▂▁▁▂▂▂▂▃▂▃▄▂▅▅▃▅▅▅▅▆▅▅▆▇▅▇█▆▄▇▆▄▆▆██
+wandb:          train/critic_loss ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▂▁▁▂▂▂▂▂▂█▂▂▆▃▆
+wandb:             train/duration ▂▂▁▄▁▃▁▁▇▂▆▁█▁▁▆▁▄▁▁▁▁▁▁█▁▂▅▁▃▁▆▁▁▄▁▃▁▁▁
+wandb:              train/entropy ████▇▇▇▇▆▆▅▄▅▄▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▁▂▂▂▂▁▁
+wandb:              train/episode ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███
+wandb:       train/episode_reward ▁▁▂▁▁▁▁▂▁▂▁▂▁▁▂▁▃▃▁▂▁▇▅▅▂▁▁▁▃▂▂▂▁█▃▂▂▁▁▁
+wandb:          train/num_updates ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:        train_actor/entropy ████▇▇▇▇▆▆▅▄▅▄▃▃▂▂▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▁▂▂▂▂▁▁
+wandb: train_actor/target_entropy ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:           train_alpha/loss █▇▆▅▄▄▃▃▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:          train_alpha/value █▇▅▅▄▃▃▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▃
+wandb: 
+wandb: Run summary:
+wandb:           train/actor_loss -44.46215
+wandb:         train/batch_reward 0.19422
+wandb:          train/critic_loss 17.16888
+wandb:             train/duration 6.9659
+wandb:              train/entropy 0.94714
+wandb:              train/episode 666
+wandb:       train/episode_reward 6.31128
+wandb:          train/num_updates 31980
+wandb:        train_actor/entropy 0.94714
+wandb: train_actor/target_entropy -5
+wandb:           train_alpha/loss 0.00833
+wandb:          train_alpha/value 0.02784
+wandb: 
+wandb: 🚀 View run UR5-madi-seed256-batch128-video-bg-madi at: https://wandb.ai/gauthamv/madi/runs/pomzxf8v
+wandb: ️⚡ View job at https://wandb.ai/gauthamv/madi/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjk2MDUxODQ5/version_details/v18
+wandb: Synced 6 W&B file(s), 0 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20230918_175350-pomzxf8v/logs
+Exception in thread ChkStopThr:
+Traceback (most recent call last):
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/wandb_run.py", line 290, in check_stop_status
+    process=_process_stop_status,
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/wandb_run.py", line 223, in _loop_check_status
+    local_handle = request()
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface.py", line 727, in deliver_stop_status
+    return self._deliver_stop_status(status)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface_shared.py", line 450, in _deliver_stop_status
+    return self._deliver_record(record)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface_shared.py", line 425, in _deliver_record
+    handle = mailbox._deliver_record(record, interface=self)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/mailbox.py", line 455, in _deliver_record
+    interface._publish(record)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    self.send_server_request(server_req)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+    self._send_message(msg)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
+
+Exception in thread IntMsgThr:
+Traceback (most recent call last):
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/wandb_run.py", line 304, in check_internal_messages
+    process=_process_internal_messages,
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/wandb_run.py", line 223, in _loop_check_status
+    local_handle = request()
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface.py", line 743, in deliver_internal_messages
+    return self._deliver_internal_messages(internal_message)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface_shared.py", line 472, in _deliver_internal_messages
+    return self._deliver_record(record)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface_shared.py", line 425, in _deliver_record
+    handle = mailbox._deliver_record(record, interface=self)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/mailbox.py", line 455, in _deliver_record
+    interface._publish(record)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    self.send_server_request(server_req)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+    self._send_message(msg)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/home/gautham/anaconda3/envs/madi/lib/python3.6/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe
