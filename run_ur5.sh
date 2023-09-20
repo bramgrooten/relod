@@ -7,7 +7,7 @@
 #done
 
 
-init_seed=300
+init_seed=350
 repeats=3
 
 for ((i=0; i<$repeats; i++)); do

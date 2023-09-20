@@ -234,7 +234,7 @@ class SACRADLearner(BaseLearner):
         self._critic_optimizer.step()
 
         critic_stats = {
-            'train_critic/loss': critic_loss.item()
+            'train/critic_loss': critic_loss.item()
         }
 
         return critic_stats

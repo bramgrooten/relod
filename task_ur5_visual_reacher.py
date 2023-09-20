@@ -253,6 +253,7 @@ def main():
         agent.performer.sample_action((image, prop))
         agent.performer.sample_action((image, prop))
 
+
     # Experiment block starts
     experiment_done = False
     total_steps = 0
@@ -261,6 +262,11 @@ def main():
     epi_lens = []
     start_time = time.time()
     print(f'Experiment starts at: {start_time}')
+    
+    # Eval
+    if args.eval_env_mode != 'none':
+            eval(total_steps, args, agent, env, mask_rec, L)
+    
     while not experiment_done:
         # start a new episode
         if mode == MODE.EVALUATION:
@@ -278,7 +284,6 @@ def main():
         epi_steps = 0
         sub_steps = 0
         epi_done = 0
-        eval_episode = 0
         if (mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION) and args.save_image:
             episode_image_dir = args.image_dir+f'/episode={len(returns)+1}/'
             os.makedirs(episode_image_dir, exist_ok=False)
@@ -362,50 +367,16 @@ def main():
             
             sub_epi += 1
         
-        #####################################
         # Eval 
-        #####################################
         if total_steps % 4500 == 0 and args.eval_env_mode != 'none':
-            player = VideoPlayer(mode=args.eval_env_mode)
-            video_process = multiprocessing.Process(target=player.run)
-            video_process.start()
-            env.bgr_lower = [0, 0, 120]
-            env.bgr_upper = [50, 0, 255]
-            EP = 10
-            for ep in range(EP):
-                image, prop = env.reset()
-                eval_done = False
-                eval_ret = 0
-                episode_step = 0
-                while not eval_done:
-                    action = agent.sample_action((image, prop))
-                    next_image, next_prop, reward, eval_done, _ = env.step(action)
-                    image = next_image
-                    prop = next_prop
-                    eval_ret += reward
-                    episode_step += 1
-                    # log the mask
-                    if args.algorithm == 'madi' and args.save_mask and ep == 0 and episode_step == 5:
-                        mask_rec.record(image, agent, total_steps, test_env=True, test_mode=args.eval_env_mode)
-                eval_episode += 1
-                player.switch.value = 1
-                L.log('eval/step', total_steps, total_steps)
-                L.log('eval/episode', eval_episode, total_steps)
-                L.log('eval/episode_reward', eval_ret, total_steps)
-                L.dump(total_steps)
-            
-            env.bgr_lower = [0, 0, 120]
-            env.bgr_upper = [50, 50, 255]
-            player.switch.value = 2
-            video_process.join()
-        #####################################
+            eval(total_steps, args, agent, env, mask_rec, L)
 
     duration = time.time() - start_time
     agent.save_policy_to_file(args.model_dir, total_steps)
 
-    # Clean up
-    if args.train_env_mode == "video_easy_5":
-        player.switch.value = 2
+    # Eval
+    if args.eval_env_mode != 'none':
+            eval(total_steps, args, agent, env, mask_rec, L)
 
     env.reset()
     agent.close()
@@ -415,6 +386,45 @@ def main():
     if mode == MODE.LOCAL_ONLY:
         utils.show_learning_curve(args.return_dir+'/learning curve.png', returns, epi_lens, xtick=args.xtick)
     print(f"Finished in {duration}s")
+
+
+def eval(total_steps, args, agent, env, mask_rec, L):
+    agent.learner.pause_update()
+    player = VideoPlayer(mode=args.eval_env_mode)
+    video_process = multiprocessing.Process(target=player.run)
+    video_process.start()
+    env.bgr_lower = [0, 0, 120]
+    env.bgr_upper = [50, 0, 255]
+    EP = 10
+    eval_ep_ind = np.random.randint(0, EP)
+    eval_ep_step = np.random.randint(0, 150)
+    eval_rets = []
+    for ep in range(EP):
+        image, prop = env.reset()
+        eval_done = False
+        eval_ret = 0
+        episode_step = 0
+        while not eval_done:
+            action = agent.sample_action((image, prop))
+            next_image, next_prop, reward, eval_done, _ = env.step(action)
+            image = next_image
+            prop = next_prop
+            eval_ret += reward
+            episode_step += 1
+            # log the mask
+            if args.algorithm == 'madi' and args.save_mask and ep == eval_ep_ind and episode_step == eval_ep_step:
+                mask_rec.record(image, agent, total_steps, test_env=True, test_mode=args.eval_env_mode)
+        player.switch.value = 1
+        eval_rets.append(eval_ret)
+    L.log('eval/step', total_steps, total_steps)
+    L.log('eval/episode_reward', np.mean(eval_rets), total_steps)
+    L.dump(total_steps)
+    
+    env.bgr_lower = [0, 0, 120]
+    env.bgr_upper = [50, 50, 255]
+    player.switch.value = 2
+    video_process.join()
+    agent.learner.resume_update()
 
 
 if __name__ == '__main__':
