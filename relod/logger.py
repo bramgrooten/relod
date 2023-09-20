@@ -17,7 +17,8 @@ FORMAT_CONFIG = {
             ('entropy', 'ENT', 'float'),
             ('critic_loss', 'CLOSS', 'float'), ('num_updates', 'NUM', 'int')
         ],
-        'eval': [('step', 'S', 'int'), ('episode_reward', 'ER', 'float')]
+        'eval': [('step', 'S', 'int'), ('episode_reward', 'ER', 'float'), 
+                 ('episode', 'E', 'int')]
     }
 }
 

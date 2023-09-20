@@ -66,7 +66,7 @@ def parse_args():
     parser.add_argument('--reset_penalty_steps', default=70, type=int)
     parser.add_argument('--reward', default=-1, type=float)
     parser.add_argument('--background_color', default='white', type=str)
-    parser.add_argument('--eval_env_mode', default=None, type=str)
+    parser.add_argument('--eval_env_mode', default='video_easy_5', type=str)
     parser.add_argument('--train_env_mode', default='clean', type=str, help="Mode in ['clean', 'video_easy_5']")
 
     # replay buffer
@@ -278,6 +278,7 @@ def main():
         epi_steps = 0
         sub_steps = 0
         epi_done = 0
+        eval_episode = 0
         if (mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION) and args.save_image:
             episode_image_dir = args.image_dir+f'/episode={len(returns)+1}/'
             os.makedirs(episode_image_dir, exist_ok=False)
@@ -312,7 +313,6 @@ def main():
                     L.log(k, v, total_steps)
             
             #### 
-
             image = next_image
             prop = next_prop
 
@@ -321,7 +321,7 @@ def main():
             ret += reward
             epi_steps += 1
             sub_steps += 1
-
+            
             if args.save_model and total_steps % args.save_model_freq == 0:
                 agent.save_policy_to_file(args.model_dir, total_steps)
 
@@ -361,6 +361,43 @@ def main():
                     utils.show_learning_curve(args.return_dir+'/learning curve.png', returns, epi_lens, xtick=args.xtick)
             
             sub_epi += 1
+        
+        #####################################
+        # Eval 
+        #####################################
+        if total_steps % 4500 == 0 and args.eval_env_mode != 'none':
+            player = VideoPlayer(mode=args.eval_env_mode)
+            video_process = multiprocessing.Process(target=player.run)
+            video_process.start()
+            env.bgr_lower = [0, 0, 120]
+            env.bgr_upper = [50, 0, 255]
+            EP = 10
+            for ep in range(EP):
+                image, prop = env.reset()
+                eval_done = False
+                eval_ret = 0
+                episode_step = 0
+                while not eval_done:
+                    action = agent.sample_action((image, prop))
+                    next_image, next_prop, reward, eval_done, _ = env.step(action)
+                    image = next_image
+                    prop = next_prop
+                    eval_ret += reward
+                    episode_step += 1
+                    # log the mask
+                    if args.algorithm == 'madi' and args.save_mask and ep == 0 and episode_step == 5:
+                        mask_rec.record(image, agent, total_steps, test_env=True, test_mode=args.eval_env_mode)
+                eval_episode += 1
+                L.log('eval/step', total_steps, total_steps)
+                L.log('eval/episode', eval_episode, total_steps)
+                L.log('eval/episode_reward', eval_ret, total_steps)
+                L.dump(total_steps)
+            
+            env.bgr_lower = [0, 0, 120]
+            env.bgr_upper = [50, 50, 255]
+            player.switch.value = 2
+            video_process.join()
+        #####################################
 
     duration = time.time() - start_time
     agent.save_policy_to_file(args.model_dir, total_steps)
@@ -377,7 +414,6 @@ def main():
     if mode == MODE.LOCAL_ONLY:
         utils.show_learning_curve(args.return_dir+'/learning curve.png', returns, epi_lens, xtick=args.xtick)
     print(f"Finished in {duration}s")
-
 
 
 if __name__ == '__main__':
