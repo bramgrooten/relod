@@ -388,6 +388,7 @@ def main():
                     if args.algorithm == 'madi' and args.save_mask and ep == 0 and episode_step == 5:
                         mask_rec.record(image, agent, total_steps, test_env=True, test_mode=args.eval_env_mode)
                 eval_episode += 1
+                player.switch.value = 1
                 L.log('eval/step', total_steps, total_steps)
                 L.log('eval/episode', eval_episode, total_steps)
                 L.log('eval/episode_reward', eval_ret, total_steps)
