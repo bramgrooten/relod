@@ -11,6 +11,7 @@ from relod.algo.sac_rad_buffer import AsyncRadReplayBuffer, RadReplayBuffer
 from relod.algo.rl_agent import BaseLearner, BasePerformer
 from relod.algo.models import ActorModel, CriticModel, MaskerNet
 from relod.augmentations import strong_augment
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 
 class MaDiPerformer(BasePerformer):
@@ -23,6 +24,7 @@ class MaDiPerformer(BasePerformer):
 
         self.num_masks = 3  # args.frame_stack (how many frames per obs)
         self._masker = MaskerNet(self._args.image_shape).to(self._args.device)
+
 
         self._actor = ActorModel(self._args.image_shape,
                                  self._args.proprioception_shape,
@@ -221,6 +223,11 @@ class MaDiLearner(BaseLearner):
             self._masker.parameters(), lr=self._args.masker_lr, betas=(0.9, 0.999)
         )
 
+        if self._args.anneal_masker_lr == 'cosine':
+            print("Using cosine annealing")
+            self._masker_scheduler = CosineAnnealingLR(self._masker_optimizer, T_max=self._args.env_steps, eta_min=0)
+            
+
     def _share_memory(self):
         self._actor.share_memory()
         self._critic.share_memory()
@@ -275,9 +282,14 @@ class MaDiLearner(BaseLearner):
         self._critic_optimizer.step()
         self._masker_optimizer.step()
 
+
         critic_stats = {
             'train/critic_loss': critic_loss.item()
         }
+
+        if self._args.anneal_masker_lr != 'none':
+            self._masker_scheduler.step()
+            critic_stats['train/masker_lr'] = self._masker_scheduler.get_last_lr()[0]
 
         return critic_stats
 

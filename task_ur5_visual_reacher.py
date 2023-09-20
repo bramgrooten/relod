@@ -100,6 +100,7 @@ def parse_args():
     parser.add_argument('--save_mask', default=False, action='store_true')
     parser.add_argument('--save_mask_freq', default=1000, type=int)
     parser.add_argument('--strong_augment', default='none', type=str, help="Augmentations in ['none', 'conv', 'overlay']")
+    parser.add_argument('--anneal_masker_lr', default='none', type=str, help="['none', 'cosine']")
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
@@ -265,7 +266,7 @@ def main():
     
     # Eval
     if args.eval_env_mode != 'none':
-            eval(total_steps, args, agent, env, mask_rec, L)
+        eval(total_steps, args, agent, env, mask_rec, L)
     
     while not experiment_done:
         # start a new episode
