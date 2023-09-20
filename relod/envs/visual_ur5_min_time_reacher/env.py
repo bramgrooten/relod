@@ -16,7 +16,7 @@ class MonitorTarget:
         self.radius=7
         self.width=160
         self.height=90
-        self.margin = 20
+        self.margin = 0
         mpl.rcParams['toolbar'] = 'None'
         plt.ion()
         self.fig = plt.figure(facecolor=background)
