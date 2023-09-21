@@ -236,6 +236,7 @@ def main():
     elif args.algorithm == 'svea':
         agent.init_performer(SVEAPerformer, args)
         agent.init_learner(SVEALearner, args, agent.performer)
+        assert args.strong_augment != 'none', 'must specify strong_augment when running svea'
     else:
         raise NotImplementedError()
 
