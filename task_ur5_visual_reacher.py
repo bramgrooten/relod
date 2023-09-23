@@ -229,7 +229,7 @@ def main():
         mask_rec = None
     elif args.algorithm == 'sac':
         args.rad_offset = 0.0
-        print("Running SAC: rad_offset is now set to 0 (overridden if it was not 0)")
+        print("Running SAC: rad_offset is now set to 0 (overridden if it was not 0 already)")
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
         mask_rec = None
