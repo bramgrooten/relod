@@ -71,7 +71,7 @@ def parse_args():
 
     # replay buffer
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
-    parser.add_argument('--rad_offset', default=0.01, type=float)
+    parser.add_argument('--rad_offset', default=0.01, type=float, help="Offset for RAD. Default is 0.01. Will be set to 0 when running SAC")
     # train
     parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi', 'svea']")
     parser.add_argument('--init_steps', default=1000, type=int) 
@@ -227,6 +227,12 @@ def main():
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
         mask_rec = None
+    elif args.algorithm == 'sac':
+        args.rad_offset = 0.0
+        print("Running SAC: rad_offset is now set to 0 (overridden if it was not 0)")
+        agent.init_performer(SACRADPerformer, args)
+        agent.init_learner(SACRADLearner, args, agent.performer)
+        mask_rec = None
     elif args.algorithm == 'madi':
         agent.init_performer(MaDiPerformer, args)
         agent.init_learner(MaDiLearner, args, agent.performer)
@@ -234,6 +240,8 @@ def main():
             args.mask_dir = args.work_dir + '/madi_masks'
             os.makedirs(args.mask_dir, exist_ok=False)
             mask_rec = MaskRecorder(args.mask_dir, args)
+        else:
+            mask_rec = None
     elif args.algorithm == 'svea':
         assert args.strong_augment != 'none', 'must specify strong_augment when running svea'
         agent.init_performer(SVEAPerformer, args)
