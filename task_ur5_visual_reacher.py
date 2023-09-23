@@ -100,7 +100,7 @@ def parse_args():
     parser.add_argument('--save_augm', default=False, action='store_true')
     parser.add_argument('--save_augm_freq', default=1000, type=int)
     parser.add_argument('--strong_augment', default='none', type=str, help="Augmentations in ['none', 'conv', 'overlay']")
-    parser.add_argument('--anneal_masker_lr', default='none', type=str, help="['none', 'cosine']")
+    parser.add_argument('--anneal_masker_lr', default='none', type=str, help="['none', 'cosine', 'cosine10k']")
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)

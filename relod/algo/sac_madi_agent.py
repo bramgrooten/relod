@@ -12,6 +12,20 @@ from relod.algo.rl_agent import BaseLearner, BasePerformer
 from relod.algo.models import ActorModel, CriticModel, MaskerNet
 from relod.augmentations import strong_augment
 from torch.optim.lr_scheduler import CosineAnnealingLR
+import torch.optim.lr_scheduler as lr_scheduler
+
+
+class CustomCosineDecay(lr_scheduler._LRScheduler):
+    def __init__(self, optimizer, decay_steps, last_epoch=-1):
+        self.decay_steps = decay_steps
+        super(CustomCosineDecay, self).__init__(optimizer, last_epoch)
+
+    def get_lr(self):
+        step = self.last_epoch
+        if step >= self.decay_steps:
+            return [0.0 for base_lr in self.base_lrs]
+        else:
+            return [base_lr * 0.5 * (1 + np.cos(np.pi * step / self.decay_steps)) for base_lr in self.base_lrs]
 
 
 class MaDiPerformer(BasePerformer):
@@ -227,7 +241,9 @@ class MaDiLearner(BaseLearner):
         if self._args.anneal_masker_lr == 'cosine':
             print("Using cosine annealing")
             self._masker_scheduler = CosineAnnealingLR(self._masker_optimizer, T_max=self._args.env_steps, eta_min=0)
-            
+        if self._args.anneal_masker_lr == 'cosine10k':
+            print("Using cosine10k annealing")
+            self._masker_scheduler = CustomCosineDecay(self._masker_optimizer, 10000)
 
     def _share_memory(self):
         self._actor.share_memory()
@@ -268,7 +284,6 @@ class MaDiLearner(BaseLearner):
             images_augm = strong_augment(images, self._args.strong_augment)
             if self.augm_rec is not None:
                 self.augm_rec.record(images, images_augm, self._num_updates)
-                print(f"\n\n aug record called. num upd: {self._num_updates}")
             images = torch.cat([images, images_augm], dim=0)
             proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
             actions = torch.cat([actions, actions], dim=0)
@@ -277,7 +292,6 @@ class MaDiLearner(BaseLearner):
             images = self._performer.apply_mask(images)
             if self.augm_rec is not None:
                 self.augm_rec.record(images[:images.shape[0]//2], images[images.shape[0]//2:], self._num_updates, masked=True)
-                print(f"aug rec call again for masked augs and imgs")
         else:
             images = self._performer.apply_mask(images)
 
