@@ -68,12 +68,9 @@ class EncoderModel(nn.Module):
 
         if image_shape[-1] != 0:  # use image
             c, h, w = image_shape
-            print('image shape:', image_shape)
             self.rad_h = round(rad_offset * h)
             self.rad_w = round(rad_offset * w)
-            print('rad_h:', self.rad_h, 'rad_w:', self.rad_w, 'rad_offset:', rad_offset, 'h:', h, 'w:', w)
             image_shape = (c, h-2*self.rad_h, w-2*self.rad_w)
-            print('Encoder image shape:', image_shape)
             self.init_conv(image_shape, net_params)
             if spatial_softmax:
                 self.latent_dim = net_params['conv'][-1][1] * 2

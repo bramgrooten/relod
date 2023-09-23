@@ -88,9 +88,10 @@ class SVEAPerformer(BasePerformer):
         del self
 
 class SVEALearner(BaseLearner):
-    def __init__(self, args, performer=None) -> None:
+    def __init__(self, args, performer=None, augm_rec=None) -> None:
         self._args = args
         self._args.device = torch.device(args.device)
+        self.augm_rec = augm_rec
 
         if not 'conv' in self._args.net_params: # no image
             self._args.image_shape = (0, 0, 0)
@@ -225,6 +226,8 @@ class SVEALearner(BaseLearner):
 
         if self._args.strong_augment != 'none':
             images_augm = strong_augment(images, self._args.strong_augment)
+            if self.augm_rec is not None:
+                self.augm_rec.record(images, images_augm, self._num_updates)
             images = torch.cat([images, images_augm], dim=0)
             proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
             actions = torch.cat([actions, actions], dim=0)

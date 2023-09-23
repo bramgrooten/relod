@@ -38,19 +38,20 @@ def random_overlay(x, dataset='places365_standard', alpha=0.5):
     global places_iter
     if dataset == 'places365_standard':
         if places_dataloader is None:
-            _load_places(batch_size=x.size(0), image_size=x.size(-1))
+            _load_places(batch_size=x.size(0), image_size=(x.size(-2), x.size(-1)))
         imgs = _get_places_batch(batch_size=x.size(0)).repeat(1, x.size(1)//3, 1, 1) * 255.0
     else:
         raise NotImplementedError(f'overlay has not been implemented for dataset "{dataset}"')
     return imgs * alpha + x * (1 - alpha)
 
 
-def _load_places(batch_size=256, image_size=84, num_workers=8, use_val=False):
+def _load_places(batch_size=256, image_size=(90, 160), num_workers=8, use_val=False):
     global places_dataloader, places_iter
 
     data_dir = os.environ.get('DMCGB_DATASETS')
     assert data_dir is not None, 'DMCGB_DATASETS not set. Use `export DMCGB_DATASETS="/path/to/datasets"`'
-    # print('DMCGB_DATASETS:', os.environ['DMCGB_DATASETS'])
+    print('DMCGB_DATASETS:', os.environ['DMCGB_DATASETS'])
+    print('data_dir', data_dir)
 
     partition = 'val' if use_val else 'train'
     print(f'Loading {partition} partition of places365_standard...')

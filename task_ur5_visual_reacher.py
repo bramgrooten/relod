@@ -9,7 +9,7 @@ import numpy as np
 import relod.utils as utils
 import matplotlib.pyplot as plt
 from relod.logger import Logger
-from relod.video_rec import MaskRecorder
+from relod.video_rec import MaskRecorder, AugmentationRecorder
 from relod.algo.comm import MODE
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
@@ -97,6 +97,8 @@ def parse_args():
     parser.add_argument('--masker_lr', default=3e-4, type=float)  # was 1e-3 in MaDi work, but 3e-4 is standard here. Can try 1e-3 later
     parser.add_argument('--save_mask', default=False, action='store_true')
     parser.add_argument('--save_mask_freq', default=1000, type=int)
+    parser.add_argument('--save_augm', default=False, action='store_true')
+    parser.add_argument('--save_augm_freq', default=1000, type=int)
     parser.add_argument('--strong_augment', default='none', type=str, help="Augmentations in ['none', 'conv', 'overlay']")
     parser.add_argument('--anneal_masker_lr', default='none', type=str, help="['none', 'cosine']")
     # agent
@@ -221,33 +223,39 @@ def main():
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
     agent.send_data(args)
     print(f"Algorithm: {args.algorithm}")
+    mask_rec = None
+    augm_rec = None
+
+    if args.save_augm:
+        args.augm_dir = args.work_dir + '/augmentations'
+        os.makedirs(args.augm_dir, exist_ok=False)
+        augm_rec = AugmentationRecorder(args.augm_dir, args)
+
     if args.algorithm == 'rad':
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
-        mask_rec = None
     elif args.algorithm == 'sac':
         args.rad_offset = 0.0
         print("Running SAC: rad_offset is now set to 0 (overridden if it was not 0 already)")
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
-        mask_rec = None
     elif args.algorithm == 'madi':
         agent.init_performer(MaDiPerformer, args)
-        agent.init_learner(MaDiLearner, args, agent.performer)
+        agent.init_learner(MaDiLearner, args, agent.performer, augm_rec)
         if args.save_mask:
             args.mask_dir = args.work_dir + '/madi_masks'
             os.makedirs(args.mask_dir, exist_ok=False)
             mask_rec = MaskRecorder(args.mask_dir, args)
-        else:
-            mask_rec = None
     elif args.algorithm == 'svea':
         assert args.strong_augment != 'none', 'must specify strong_augment when running svea'
         agent.init_performer(SVEAPerformer, args)
-        agent.init_learner(SVEALearner, args, agent.performer)
-        mask_rec = None
+        agent.init_learner(SVEALearner, args, agent.performer, augm_rec)
     else:
         raise NotImplementedError()
 
+    # For the overlay augmentation
+    if args.strong_augment == 'overlay':
+        assert os.environ['DMCGB_DATASETS'] == "/home/gautham/madi/relod/datasets_augmentation/dmcgb", "Check your location of the Places365 dataset for the overlay augmentation"
 
     # input('go?')
 
@@ -274,8 +282,8 @@ def main():
     print(f'Experiment starts at: {start_time}')
     
     # Eval
-    if args.eval_env_mode != 'none':
-        eval(total_steps, args, agent, env, mask_rec, L)
+    # if args.eval_env_mode != 'none':
+    #     eval(total_steps, args, agent, env, mask_rec, L)
     
     # Save all rewards
     train_rewards = np.zeros((args.env_steps//150, 150))

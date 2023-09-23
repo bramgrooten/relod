@@ -111,9 +111,10 @@ class MaDiPerformer(BasePerformer):
 
 
 class MaDiLearner(BaseLearner):
-    def __init__(self, args, performer=None) -> None:
+    def __init__(self, args, performer=None, augm_rec=None) -> None:
         self._args = args
         self._args.device = torch.device(args.device)
+        self.augm_rec = augm_rec
 
         if not 'conv' in self._args.net_params:  # no image
             self._args.image_shape = (0, 0, 0)
@@ -253,6 +254,7 @@ class MaDiLearner(BaseLearner):
     
     def _update_critic(self, images, proprioceptions, actions, rewards, next_images, next_proprioceptions, dones):
         with torch.no_grad():
+            next_images = self._performer.apply_mask(next_images)
             _, policy_actions, log_pis, _ = self._actor(next_images, next_proprioceptions)
             target_Q1, target_Q2 = self._critic_target(next_images, next_proprioceptions, policy_actions)
             target_V = torch.min(target_Q1, target_Q2) - self._alpha.detach() * log_pis
@@ -264,10 +266,20 @@ class MaDiLearner(BaseLearner):
 
         if self._args.strong_augment != 'none':
             images_augm = strong_augment(images, self._args.strong_augment)
+            if self.augm_rec is not None:
+                self.augm_rec.record(images, images_augm, self._num_updates)
+                print(f"\n\n aug record called. num upd: {self._num_updates}")
             images = torch.cat([images, images_augm], dim=0)
             proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
             actions = torch.cat([actions, actions], dim=0)
             target_Q = torch.cat([target_Q, target_Q], dim=0)
+
+            images = self._performer.apply_mask(images)
+            if self.augm_rec is not None:
+                self.augm_rec.record(images[:images.shape[0]//2], images[images.shape[0]//2:], self._num_updates, masked=True)
+                print(f"aug rec call again for masked augs and imgs")
+        else:
+            images = self._performer.apply_mask(images)
 
         # get current Q estimates
         current_Q1, current_Q2 = self._critic(images, proprioceptions, actions, detach_encoder=False)
@@ -294,6 +306,8 @@ class MaDiLearner(BaseLearner):
         return critic_stats
 
     def _update_actor_and_alpha(self, images, proprioceptions):
+        images = self._performer.apply_mask(images)
+
         # detach encoder, so we don't update it with the actor loss
         _, pis, log_pis, log_stds = self._actor(images, proprioceptions, detach_encoder=True)
         actor_Q1, actor_Q2 = self._critic(images, proprioceptions, pis, detach_encoder=True)
@@ -343,8 +357,9 @@ class MaDiLearner(BaseLearner):
         if images is not None:
             images = torch.as_tensor(images, device=self._args.device).float()
             next_images = torch.as_tensor(next_images, device=self._args.device).float()
-            images = self._performer.apply_mask(images)
-            next_images = self._performer.apply_mask(next_images)
+            # images = self._performer.apply_mask(images)
+            # next_images = self._performer.apply_mask(next_images)
+            # this was wrong: should wait until it's augmented before applying mask!
         if propris is not None:
             propris = torch.as_tensor(propris, device=self._args.device).float()
             next_propris = torch.as_tensor(next_propris, device=self._args.device).float()
