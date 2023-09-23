@@ -5,11 +5,9 @@ import cv2
 import os
 import wandb
 import multiprocessing
-
 import numpy as np
 import relod.utils as utils
 import matplotlib.pyplot as plt
-
 from relod.logger import Logger
 from relod.video_rec import MaskRecorder
 from relod.algo.comm import MODE
