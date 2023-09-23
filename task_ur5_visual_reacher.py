@@ -75,7 +75,7 @@ def parse_args():
     # train
     parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi', 'svea']")
     parser.add_argument('--init_steps', default=1000, type=int) 
-    parser.add_argument('--env_steps', default=100000, type=int)
+    parser.add_argument('--env_steps', default=100050, type=int)
     parser.add_argument('--batch_size', default=128, type=int)
     parser.add_argument('--sync_mode', default=False, action='store_true')
     parser.add_argument('--max_updates_per_step', default=0.6, type=float)
@@ -226,6 +226,7 @@ def main():
     if args.algorithm == 'rad':
         agent.init_performer(SACRADPerformer, args)
         agent.init_learner(SACRADLearner, args, agent.performer)
+        mask_rec = None
     elif args.algorithm == 'madi':
         agent.init_performer(MaDiPerformer, args)
         agent.init_learner(MaDiLearner, args, agent.performer)
@@ -236,6 +237,7 @@ def main():
     elif args.algorithm == 'svea':
         agent.init_performer(SVEAPerformer, args)
         agent.init_learner(SVEALearner, args, agent.performer)
+        mask_rec = None
     else:
         raise NotImplementedError()
 
@@ -268,6 +270,9 @@ def main():
     if args.eval_env_mode != 'none':
         eval(total_steps, args, agent, env, mask_rec, L)
     
+    # Save all rewards
+    train_rewards = np.zeros((args.env_steps//150, 150))
+
     while not experiment_done:
         # start a new episode
         if mode == MODE.EVALUATION:
@@ -325,9 +330,12 @@ def main():
             # Log
             total_steps += 1
             ret += reward
+            train_rewards[len(returns), epi_steps] = reward # Save all rewards
             epi_steps += 1
             sub_steps += 1
             
+            
+
             if args.save_model and total_steps % args.save_model_freq == 0:
                 agent.save_policy_to_file(args.model_dir, total_steps)
 
@@ -377,7 +385,10 @@ def main():
 
     # Eval
     if args.eval_env_mode != 'none':
-            eval(total_steps, args, agent, env, mask_rec, L)
+        eval(total_steps, args, agent, env, mask_rec, L)
+
+    # Save train rewards
+    np.savetxt(args.return_dir+"/train_rewards.txt", train_rewards)
 
     env.reset()
     agent.close()
@@ -390,6 +401,7 @@ def main():
 
 
 def eval(total_steps, args, agent, env, mask_rec, L):
+    eval_rewards = np.zeros((10, 150))
     agent.learner.pause_update()
     player = VideoPlayer(mode=args.eval_env_mode)
     video_process = multiprocessing.Process(target=player.run)
@@ -411,6 +423,7 @@ def eval(total_steps, args, agent, env, mask_rec, L):
             image = next_image
             prop = next_prop
             eval_ret += reward
+            eval_rewards[ep, episode_step] = reward
             episode_step += 1
             # log the mask
             if args.algorithm == 'madi' and args.save_mask and ep == eval_ep_ind and episode_step == eval_ep_step:
@@ -420,6 +433,9 @@ def eval(total_steps, args, agent, env, mask_rec, L):
     L.log('eval/step', total_steps, total_steps)
     L.log('eval/episode_reward', np.mean(eval_rets), total_steps)
     L.dump(total_steps)
+
+    # Save eval rewards
+    np.savetxt(args.return_dir+f"/eval_rewards_{total_steps}.txt", eval_rewards)
     
     env.bgr_lower = [0, 0, 120]
     env.bgr_upper = [50, 50, 255]
