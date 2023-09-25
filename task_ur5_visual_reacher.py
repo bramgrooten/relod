@@ -282,8 +282,8 @@ def main():
     print(f'Experiment starts at: {start_time}')
     
     # Eval
-    # if args.eval_env_mode != 'none':
-    #     eval(total_steps, args, agent, env, mask_rec, L)
+    if args.eval_env_mode != 'none':
+        eval(total_steps, args, agent, env, mask_rec, L)
     
     # Save all rewards
     train_rewards = np.zeros((args.env_steps//150, 150))
