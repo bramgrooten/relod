@@ -7,12 +7,15 @@
 #done
 
 
-init_seed=1510
+init_seed=1520
 repeats=5
+
+prev_offset=0.01
 
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
-    offset=$(echo "$i * 0.02" | bc)
+    offset=$(echo "2 * $prev_offset" | bc)
+    prev_offset=$offset
     python task_ur5_visual_reacher.py --algorithm 'rad' --work_dir "/home/gautham/madi/results" --camera_id 0 --description "rad_offset$offset" --seed $current_seed --rad_offset $offset
 
     current_seed=$((init_seed + i + repeats))
