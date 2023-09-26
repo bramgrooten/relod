@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-init_seed=1550
+init_seed=1700
 repeats=5
 
 #prev_offset=0.04
