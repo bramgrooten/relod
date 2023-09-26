@@ -281,17 +281,48 @@ class MaDiLearner(BaseLearner):
                 target_Q = rewards + ((1.0 - dones) * self._args.discount * target_V)
 
         if self._args.strong_augment != 'none':
-            images_augm = strong_augment(images, self._args.strong_augment)
-            if self.augm_rec is not None:
-                self.augm_rec.record(images, images_augm, self._num_updates)
-            images = torch.cat([images, images_augm], dim=0)
-            proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
-            actions = torch.cat([actions, actions], dim=0)
-            target_Q = torch.cat([target_Q, target_Q], dim=0)
+            if self._args.when_augm == 'before':
+                images_augm = strong_augment(images, self._args.strong_augment)
+                if self.augm_rec is not None:
+                    self.augm_rec.record(images, images_augm, self._num_updates)
+                images = torch.cat([images, images_augm], dim=0)
+                proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
+                actions = torch.cat([actions, actions], dim=0)
+                target_Q = torch.cat([target_Q, target_Q], dim=0)
 
-            images = self._performer.apply_mask(images)
-            if self.augm_rec is not None:
-                self.augm_rec.record(images[:images.shape[0]//2], images[images.shape[0]//2:], self._num_updates, masked=True)
+                images = self._performer.apply_mask(images)
+                if self.augm_rec is not None:
+                    self.augm_rec.record(images[:images.shape[0]//2], images[images.shape[0]//2:], self._num_updates, masked=True)
+            elif self._args.when_augm == 'after':
+                images = self._performer.apply_mask(images)
+                images_augm = strong_augment(images, self._args.strong_augment)
+                if self.augm_rec is not None:
+                    self.augm_rec.record(images, images_augm, self._num_updates, masked=True)
+                images = torch.cat([images, images_augm], dim=0)
+                proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
+                actions = torch.cat([actions, actions], dim=0)
+                target_Q = torch.cat([target_Q, target_Q], dim=0)
+            elif self._args.when_augm == 'both':
+                images_augm = strong_augment(images, self._args.strong_augment)
+                if self.augm_rec is not None:
+                    self.augm_rec.record(images, images_augm, self._num_updates)
+                images = torch.cat([images, images_augm], dim=0)
+                proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
+                actions = torch.cat([actions, actions], dim=0)
+                target_Q = torch.cat([target_Q, target_Q], dim=0)
+
+                images = self._performer.apply_mask(images)
+                if self.augm_rec is not None:
+                    self.augm_rec.record(images[:images.shape[0]//2], images[images.shape[0]//2:], self._num_updates, masked=True)
+                images_augm = strong_augment(images, self._args.strong_augment)
+                if self.augm_rec is not None:
+                    self.augm_rec.record(images, images_augm, self._num_updates, masked=True, descr='_after')
+                images = torch.cat([images, images_augm], dim=0)
+                proprioceptions = torch.cat([proprioceptions, proprioceptions], dim=0)
+                actions = torch.cat([actions, actions], dim=0)
+                target_Q = torch.cat([target_Q, target_Q], dim=0)
+            else:
+                raise NotImplementedError(f"Unknown arg for when_augm: {self._args.when_augm}")
         else:
             images = self._performer.apply_mask(images)
 

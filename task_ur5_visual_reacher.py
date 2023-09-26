@@ -101,6 +101,8 @@ def parse_args():
     parser.add_argument('--save_augm_freq', default=1000, type=int)
     parser.add_argument('--strong_augment', default='none', type=str, help="Augmentations in ['none', 'conv', 'overlay']")
     parser.add_argument('--anneal_masker_lr', default='none', type=str, help="['none', 'cosine', 'cosine10k']")
+    parser.add_argument('--when_augm', default='before', type=str,
+                        help="When to augment. Before or after masking (or both)", choices=['before', 'after', 'both'])
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
