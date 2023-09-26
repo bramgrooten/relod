@@ -112,14 +112,14 @@ class AugmentationRecorder(object):
         self.save_all_frames = False
         self.extra_record_steps = [10, 50, 100, 500, 2000, 5000]
 
-    def record(self, obs, obs_augm, step: int, masked: bool = False):
+    def record(self, obs, obs_augm, step: int, masked: bool = False, descr: str = ''):
         if step % self.save_every == 0 or step in self.extra_record_steps:
             aug_type = '_masked' if masked else ''
             for frame in range(self.num_frames):
                 if frame == 0 or self.save_all_frames:
                     torchvision.utils.save_image(
                         (obs_augm[0][3 * frame:3 * frame + 3] / 255.).flip(0),
-                        os.path.join(self.dir_name, f'update{step}_frame{frame}_augmented{aug_type}_obs.png'))
+                        os.path.join(self.dir_name, f'update{step}_frame{frame}_augmented{aug_type}_obs{descr}.png'))
                     torchvision.utils.save_image(
                         (obs[0][3 * frame:3 * frame + 3] / 255.).flip(0),
-                        os.path.join(self.dir_name, f'update{step}_frame{frame}{aug_type}_obs.png'))
+                        os.path.join(self.dir_name, f'update{step}_frame{frame}{aug_type}_obs{descr}.png'))
