@@ -7,10 +7,10 @@
 #done
 
 
-init_seed=1520
-repeats=5
+init_seed=1530
+repeats=3
 
-prev_offset=0.01
+prev_offset=0.04
 
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
