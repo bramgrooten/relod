@@ -9,6 +9,10 @@ import numpy as np
 class RadReplayBuffer(object):
     """Buffer to store environment transitions."""
     def __init__(self, image_shape, proprioception_shape, action_shape, capacity, batch_size):
+        self.image_shape = image_shape
+        self.proprioception_shape = proprioception_shape
+        self.action_shape = action_shape
+        self.capacity = capacity
         self.capacity = capacity
         self.batch_size = batch_size
 
@@ -73,6 +77,28 @@ class RadReplayBuffer(object):
         dones = self.dones[idxs]
 
         return images, propris, actions, rewards, next_images, next_propris, dones
+    
+    def flush(self):
+        if self.image_shape[-1] != 0:
+            self.images = np.empty((self.capacity, *self.image_shape), dtype=np.uint8)
+            self.next_images = np.empty((self.capacity, *self.image_shape), dtype=np.uint8)
+            self.ignore_image = False
+
+        if self.proprioception_shape[-1] != 0:
+            self.propris = np.empty((self.capacity, *self.proprioception_shape), dtype=np.float32)
+            self.next_propris = np.empty((self.capacity, *self.proprioception_shape), dtype=np.float32)
+            self.ignore_propri = False
+
+        self.actions = np.empty((self.capacity, *self.action_shape), dtype=np.float32)
+        self.rewards = np.empty((self.capacity, 1), dtype=np.float32)
+        self.dones = np.empty((self.capacity, 1), dtype=np.float32)
+
+        self.idx = 0
+        self.last_save = 0
+        self.full = False
+        self.count = 0
+        print("Buffer flushed. Waiting for samples...")
+
 
 
 class AsyncRadReplayBuffer(RadReplayBuffer):
@@ -110,7 +136,9 @@ class AsyncRadReplayBuffer(RadReplayBuffer):
                     self._pause_update = False
                     print('resume update')
                 elif sample == 'save':
-                    self.save()                    
+                    self.save()
+                elif sample == 'flush':
+                    self.flush()             
                 else:
                     raise NotImplementedError()
             else:
@@ -120,7 +148,8 @@ class AsyncRadReplayBuffer(RadReplayBuffer):
 
     def send_to_update(self):
         while True:
-            if self._pause_update or (self.send_count > (self.step - self.init_steps) * self.max_updates_per_step):
+            if self._pause_update or (self.send_count > (self.step - self.init_steps) * self.max_updates_per_step) or \
+                self.count < self.batch_size:
                 time.sleep(0.1)
             else:
                 self.minibatch_queue.put(tuple(self.sample()))
