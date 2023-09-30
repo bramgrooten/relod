@@ -65,7 +65,8 @@ def parse_args():
     parser.add_argument('--reward', default=-1, type=float)
     parser.add_argument('--background_color', default='white', type=str)
     parser.add_argument('--eval_env_mode', default='video_easy_5', type=str)
-
+    # transfer
+    parser.add_argument('--reinit_policy', default=False, action='store_true')
     # replay buffer
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float, help="Offset for RAD. Default is 0.01. Will be set to 0 when running SAC")
@@ -281,7 +282,6 @@ def main():
     
     # Save all rewards
     train_rewards = np.zeros((args.env_steps//150, 150))
-
   
     while not experiment_done:
         # start a new episode
@@ -303,10 +303,27 @@ def main():
                     env.bgr_lower = [0, 0, 120]
                     env.bgr_upper = [50, 0, 255]
                     video_initialized = True
+
+                    # reset agent
+                    if args.algorithm == 'madi' and args.reinit_policy:
+                        # save weights of MaskerNet
+                        masker_weights = agent.performer._masker.state_dict()
+                        masker_optimizer_state = agent.learner._masker_optimizer.state_dict()
+
+                        # reinit the entire agent
+                        agent.init_performer(MaDiPerformer, args)
+                        agent.init_learner(MaDiLearner, args, agent.performer, augm_rec)
+
+                        # load weights of MaskerNet back in
+                        agent.performer._masker.load_state_dict(masker_weights)
+                        agent.learner._masker_optimizer.load_state_dict(masker_optimizer_state)
+
+
                 else:
                     player.switch.value = 1
 
             image, prop = env.reset()
+
             
         agent.send_init_ob((image, prop))
         ret = 0
