@@ -320,13 +320,21 @@ def main():
 
                 if args.algorithm == 'madi':
                     image_torch = torch.as_tensor(image, device=args.device).float().unsqueeze(0)
+                    mask = agent.performer._masker(image_torch.chunk(3, dim=1)[-1])
+                    mask = mask.squeeze(0).detach().cpu().numpy()
+                    mask = np.transpose(mask, [1, 2, 0])
+                    mask = mask[:,:,0]
+                    if args.display_image:
+                        cv2.imshow('mask', mask)
+                        cv2.waitKey(1)
+                    if (mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION) and args.save_image:
+                        cv2.imwrite(episode_image_dir+f'sub_epi={sub_epi}-epi_step={epi_steps}-mask.png', mask*255)
                     masked_obs = agent.performer.apply_mask(image_torch)
-                    # now save it as a png
                     masked_obs = masked_obs.squeeze(0).detach().cpu().numpy()
                     masked_obs = np.transpose(masked_obs, [1, 2, 0])
                     masked_obs = masked_obs[:,:,-3:]
                     if args.display_image:
-                        cv2.imshow('masked', masked_obs)
+                        cv2.imshow('masked_obs', masked_obs)
                         cv2.waitKey(1)
                     if (mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION) and args.save_image:
                         cv2.imwrite(episode_image_dir+f'sub_epi={sub_epi}-epi_step={epi_steps}-masked.png', masked_obs)
