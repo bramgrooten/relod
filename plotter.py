@@ -315,20 +315,31 @@ def make_inset_video():
     import glob
     import cv2
     
-    basepath = "/Users/gautham/Pictures/Minimum-time Paper/Videos/Franka Random Policy"
+    # basepath = "/Users/gautham/Pictures/Minimum-time Paper/Videos/Franka Random Policy"
+    basepath = "/mnt/d/s136407/OneDrive - TU Eindhoven/MaskingNoise/ur5_evals/seed=1404"
+    mode = "video_easy_5"
     dt = 0.04
     img_size = (160, 90)
-    
+
     for num_episode in [1]:
-        fp = basepath + "/images/episode={}".format(num_episode)
+        fp = basepath + f"/eval_images_{mode}/episode={num_episode}"
         all_pngs = glob.glob(fp + "/*.png")
 
-        out = cv2.VideoWriter(basepath + f'/epi_{num_episode}.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
-        for i in range(len(all_pngs)):
+        out = cv2.VideoWriter(basepath + f'/epi_{num_episode}_{mode}.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
+        out_mask = cv2.VideoWriter(basepath + f'/epi_{num_episode}_{mode}_mask.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
+        out_masked_obs = cv2.VideoWriter(basepath + f'/epi_{num_episode}_{mode}_masked_obs.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
+        for i in range(len(all_pngs) // 3):
             img = cv2.imread(fp + f"/sub_epi={num_episode}-epi_step={i}.png")
             out.write(img)
+            img_mask = cv2.imread(fp + f"/sub_epi={num_episode}-epi_step={i}-mask.png")
+            out_mask.write(img_mask)
+            img_masked_obs = cv2.imread(fp + f"/sub_epi={num_episode}-epi_step={i}-masked.png")
+            out_masked_obs.write(img_masked_obs)
 
         out.release()
+        out_mask.release()
+        out_masked_obs.release()
+
 
 if __name__ == '__main__':
     # mpl.style.use('seaborn')
