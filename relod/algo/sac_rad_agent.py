@@ -337,6 +337,10 @@ class SACRADLearner(BaseLearner):
     def resume_update(self):
         if self._args.async_mode:
             self._sample_queue.put('resume')
+    
+    def flush_buffer(self):
+        if self._args.async_mode:
+            self._sample_queue.put('flush')
 
     def save_policy_to_file(self, model_dir, step):
         torch.save(self._actor.state_dict(), '%s/actor_%s.pt' % (model_dir, step))
