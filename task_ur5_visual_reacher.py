@@ -166,7 +166,7 @@ def main():
         L = Logger(args.return_dir, use_tb=args.save_tb)
 
     if args.save_image:
-        args.image_dir = args.work_dir+'/images'
+        args.image_dir = args.work_dir + f'/eval_images_{args.train_env_mode}'
         if mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION:
             os.makedirs(args.image_dir, exist_ok=False)
 
@@ -322,7 +322,7 @@ def main():
                     image_torch = torch.as_tensor(image, device=args.device).float().unsqueeze(0)
                     masked_obs = agent.performer.apply_mask(image_torch)
                     # now save it as a png
-                    masked_obs = masked_obs.squeeze(0).cpu().numpy()
+                    masked_obs = masked_obs.squeeze(0).detach().cpu().numpy()
                     masked_obs = np.transpose(masked_obs, [1, 2, 0])
                     masked_obs = masked_obs[:,:,-3:]
                     if args.display_image:
