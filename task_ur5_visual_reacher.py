@@ -314,6 +314,20 @@ def main():
         epi_start_time = time.time()
         while not experiment_done and not epi_done:
             if args.display_image or ((mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION) and args.save_image):
+
+                if args.algorithm == 'madi':
+                    image_torch = torch.as_tensor(image, device=args.device).float().unsqueeze(0)
+                    masked_obs = agent.performer.apply_mask(image_torch)
+                    # now save it as a png
+                    masked_obs = masked_obs.squeeze(0).cpu().numpy()
+                    masked_obs = np.transpose(masked_obs, [1, 2, 0])
+                    masked_obs = masked_obs[:,:,-3:]
+                    if args.display_image:
+                        cv2.imshow('masked', masked_obs)
+                        cv2.waitKey(1)
+                    if (mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION) and args.save_image:
+                        cv2.imwrite(episode_image_dir+f'sub_epi={sub_epi}-epi_step={epi_steps}-masked.png', masked_obs)
+
                 image_to_show = np.transpose(image, [1, 2, 0])
                 image_to_show = image_to_show[:,:,-3:]
                 if (mode == MODE.LOCAL_ONLY or mode == MODE.EVALUATION) and args.save_image:
