@@ -293,8 +293,11 @@ def main():
     while not experiment_done:
         # start a new episode
         if mode == MODE.EVALUATION:
+            if args.train_env_mode == "clean":
+                mt.reset_plot()
+            elif args.train_env_mode == "video_easy_5":
+                player.switch.value = 1
             image, prop = env.reset()
-            mt.reset_plot() 
         else:
             if args.train_env_mode == "clean":
                 mt.reset_plot()
