@@ -316,18 +316,21 @@ def make_inset_video():
     import cv2
     
     # basepath = "/Users/gautham/Pictures/Minimum-time Paper/Videos/Franka Random Policy"
-    basepath = "/mnt/d/s136407/OneDrive - TU Eindhoven/MaskingNoise/ur5_evals/seed=1404"
-    mode = "video_easy_5"
+    # basepath = "/mnt/d/s136407/OneDrive - TU Eindhoven/MaskingNoise/ur5_evals/seed=1404"
+    basepath = "/mnt/d/s136407/OneDrive - TU Eindhoven/MaskingNoise/1403_with_phone_vids"
+
+    # mode = "video_easy_5"
+    mode = "clean"
     dt = 0.04
     img_size = (160, 90)
 
-    for num_episode in [1]:
+    for num_episode in range(1, 12):  # [1]:
         fp = basepath + f"/eval_images_{mode}/episode={num_episode}"
         all_pngs = glob.glob(fp + "/*.png")
 
-        out = cv2.VideoWriter(basepath + f'/epi_{num_episode}_{mode}.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
-        out_mask = cv2.VideoWriter(basepath + f'/epi_{num_episode}_{mode}_mask.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
-        out_masked_obs = cv2.VideoWriter(basepath + f'/epi_{num_episode}_{mode}_masked_obs.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
+        out = cv2.VideoWriter(basepath + f'/epi{num_episode}_{mode}.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
+        out_mask = cv2.VideoWriter(basepath + f'/epi{num_episode}_{mode}_mask.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
+        out_masked_obs = cv2.VideoWriter(basepath + f'/epi{num_episode}_{mode}_masked_obs.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 1//dt, img_size)
         for i in range(len(all_pngs) // 3):
             img = cv2.imread(fp + f"/sub_epi={num_episode}-epi_step={i}.png")
             out.write(img)
