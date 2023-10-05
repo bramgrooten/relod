@@ -260,10 +260,12 @@ class VisualReacherEnv(VisualReacherMinTimeEnv):
     def __init__(self, setup='Visual-UR5-min-time', ip='129.128.159.210', seed=9, camera_id=0, 
                  image_width=160, image_height=90, target_type='size', image_history=3, 
                  joint_history=1, episode_length=30, dt=0.04, size_tol=0.015, 
-                 center_tol=0.1, reward_tol=1, background_color="white"):
+                 center_tol=0.1, reward_tol=1, background_color="white", sparse_reward=False):
         super().__init__(setup, ip, seed, camera_id, image_width, image_height, target_type, 
                          image_history, joint_history, episode_length, dt, size_tol, 
                          center_tol, reward_tol, background_color)
+        self.use_sparse_reward = sparse_reward
+        print("Using sparse reward:", sparse_reward)
     
     def step(self, action):
         assert self._reset
@@ -272,7 +274,10 @@ class VisualReacherEnv(VisualReacherMinTimeEnv):
         prop = obs_dict['joint']
         info = {}
 
-        reward = self._compute_reward(image, prop)
+        if self.use_sparse_reward:
+            reward = self._compute_target_size(image) >= self._size_tol
+        else:
+            reward = self._compute_reward(image, prop)
 
         if done:
             self._reset = False

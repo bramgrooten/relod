@@ -16,7 +16,7 @@ from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
 from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 from relod.algo.sac_svea_agent import SVEALearner, SVEAPerformer
 from relod.envs.visual_ur5_reacher.configs.ur5_config import config
-from relod.envs.visual_ur5_min_time_reacher.env import VisualReacherEnv, MonitorTarget
+from relod.envs.visual_ur5_min_time_reacher.env import VisualReacherEnv, VisualReacherMinTimeEnv, MonitorTarget
 from relod.envs.visual_ur5_min_time_reacher.env_vid import VideoPlayer
 from tqdm import tqdm
 
@@ -66,7 +66,7 @@ def parse_args():
     parser.add_argument('--background_color', default='white', type=str)
     parser.add_argument('--eval_env_mode', default='video_easy_5', type=str)
     parser.add_argument('--train_env_mode', default='clean', type=str, help="Mode in ['clean', 'video_easy_5']")
-
+    parser.add_argument('--use_sparse_reward', default=False, action='store_true')
     # replay buffer
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float, help="Offset for RAD. Default is 0.01. Will be set to 0 when running SAC")
@@ -186,6 +186,7 @@ def main():
         center_tol = args.center_tol,
         reward_tol = args.reward_tol,
         background_color = args.background_color,
+        sparse_reward=args.use_sparse_reward,
     )
 
     utils.set_seed_everywhere(args.seed, None)
@@ -208,6 +209,7 @@ def main():
         cv2.waitKey(1)
     args.image_shape = env.image_space.shape
     args.proprioception_shape = env.proprioception_space.shape
+    print(env.proprioception_space.shape)
     args.action_shape = env.action_space.shape
     args.env_action_space = env.action_space
     args.net_params = config
