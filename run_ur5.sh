@@ -40,38 +40,38 @@
 #
 
 
-init_seed=2075
-repeats=3
+# init_seed=2080
+# repeats=3
 
-for ((i=0; i<$repeats; i++)); do
-    current_seed=$((init_seed + i))
-    python task_ur5_visual_reacher.py --algorithm 'svea' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_svea_overlay" --save_mask --env_steps 200100 --strong_augment overlay --save_augm
+# for ((i=0; i<$repeats; i++)); do
+#     current_seed=$((init_seed + i))
+#     python task_ur5_visual_reacher.py --algorithm 'svea' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_svea_overlay" --save_mask --env_steps 200100 --strong_augment overlay --save_augm
 
-    current_seed=$((init_seed + i + repeats))
-    python task_ur5_visual_reacher.py --algorithm 'madi' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_madi_overlay" --save_mask --env_steps 200100 --strong_augment overlay --save_augm
+#     current_seed=$((init_seed + i + repeats))
+#     python task_ur5_visual_reacher.py --algorithm 'madi' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_madi_overlay" --save_mask --env_steps 200100 --strong_augment overlay --save_augm
 
-    current_seed=$((init_seed + i + 2*repeats))
-    python task_ur5_visual_reacher.py --algorithm 'rad' --rad_offset 0 --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_sac_only" --save_mask --env_steps 200100
-done
+#     current_seed=$((init_seed + i + 2*repeats))
+#     python task_ur5_visual_reacher.py --algorithm 'rad' --rad_offset 0 --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_sac_only" --save_mask --env_steps 200100
+# done
 
 
-python task_ur5_visual_reacher.py --algorithm 'rad' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed 2060 --use_sparse_reward --description "dm_control_rewards_rad" --env_steps 200100
+# python task_ur5_visual_reacher.py --algorithm 'rad' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed 2060 --use_sparse_reward --description "dm_control_rewards_rad" --env_steps 200100
 
 
 # Last two runs
-init_seed=3000
-repeats=2
+init_seed=3100
+repeats=5
 
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
-    python task_ur5_visual_reacher.py --algorithm 'svea' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_svea_overlay" --save_mask --env_steps 200100 --strong_augment overlay --save_augm
-
-    current_seed=$((init_seed + i + repeats))
     python task_ur5_visual_reacher.py --algorithm 'madi' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_madi_overlay" --save_mask --env_steps 200100 --strong_augment overlay --save_augm
 
+    current_seed=$((init_seed + i + repeats))
+    python task_ur5_visual_reacher.py --algorithm 'svea' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_svea_overlay" --env_steps 200100 --strong_augment overlay --save_augm
+
     current_seed=$((init_seed + i + 2*repeats))
-    python task_ur5_visual_reacher.py --algorithm 'rad' --rad_offset 0 --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_sac_only" --save_mask --env_steps 200100
+    python task_ur5_visual_reacher.py --algorithm 'rad' --rad_offset 0 --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_sac_only" --env_steps 200100
 
     current_seed=$((init_seed + i + 3*repeats))
-    python task_ur5_visual_reacher.py --algorithm 'rad' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed 2060 --use_sparse_reward --description "dm_control_rewards_rad" --env_steps 200100
+    python task_ur5_visual_reacher.py --algorithm 'rad' --work_dir "/home/gautham/madi/results/" --mode 'l' --train_env_mode "clean" --seed $current_seed --use_sparse_reward --description "dm_control_rewards_rad" --env_steps 200100
 done
