@@ -13,6 +13,7 @@ from relod.video_rec import MaskRecorder, AugmentationRecorder
 from relod.algo.comm import MODE
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
+from relod.algo.sac_drq_agent import SACDrQLearner, SACDrQPerformer
 from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 from relod.algo.sac_svea_agent import SVEALearner, SVEAPerformer
 from relod.envs.visual_ur5_reacher.configs.ur5_config import config
@@ -71,7 +72,7 @@ def parse_args():
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float, help="Offset for RAD. Default is 0.01. Will be set to 0 when running SAC")
     # train
-    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['rad', 'madi', 'svea']")
+    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['sac', 'rad', 'madi', 'svea', 'drq']")
     parser.add_argument('--init_steps', default=1000, type=int) 
     parser.add_argument('--env_steps', default=100050, type=int)
     parser.add_argument('--batch_size', default=128, type=int)
@@ -254,6 +255,11 @@ def main():
         assert args.strong_augment != 'none', 'must specify strong_augment when running svea'
         agent.init_performer(SVEAPerformer, args)
         agent.init_learner(SVEALearner, args, agent.performer, augm_rec)
+    elif args.algorithm == 'drq':
+        args.rad_offset = 0.0
+        print("Running DrQ: rad_offset is now set to 0 (overridden if it was not 0 already)")
+        agent.init_performer(SACDrQPerformer, args)
+        agent.init_learner(SACDrQLearner, args, agent.performer)
     else:
         raise NotImplementedError()
 

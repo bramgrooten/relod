@@ -3,6 +3,7 @@ import torch
 import torch.nn.functional as F
 import torchvision.datasets as datasets
 import torchvision.transforms as TF
+import kornia
 
 # global variables for places365 dataset
 places_dataloader = None
@@ -89,3 +90,10 @@ def _get_places_batch(batch_size):
         places_iter = iter(places_dataloader)
         imgs, _ = next(places_iter)
     return imgs.cuda()
+
+
+def random_shift(imgs, pad=4):
+    """Vectorized random shift, imgs: (B,C,H,W), pad: #pixels"""
+    _, _, h, w = imgs.shape
+    imgs = F.pad(imgs, (pad, pad, pad, pad), mode='replicate')
+    return kornia.augmentation.RandomCrop((h, w))(imgs)
