@@ -84,3 +84,10 @@ for ((i=0; i<$repeats; i++)); do
     python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-runs"
 done
 
+init_seed=4020
+repeats=5
+for ((i=0; i<$repeats; i++)); do
+    current_seed=$((init_seed + i))
+    python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-sparse-rew" --use_sparse_reward --env_steps 200100
+done
+
