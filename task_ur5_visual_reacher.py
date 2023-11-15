@@ -215,15 +215,6 @@ def main():
     args.env_action_space = env.action_space
     args.net_params = config
 
-    # start a new wandb run to track this script
-    wandb.init(
-        project="madi",
-        config=vars(args),
-        name=f"UR5-{args.algorithm}-seed{args.seed}-batch{args.batch_size}-{args.description}",
-        entity="gauthamv",
-        mode=args.wandb_mode,
-    )
-
     episode_length_step = int(args.episode_length_time / args.dt)
     agent = LocalWrapper(episode_length_step, mode, remote_ip=args.remote_ip, port=args.port)
     agent.send_data(args)
@@ -262,6 +253,15 @@ def main():
         agent.init_learner(SACDrQLearner, args, agent.performer)
     else:
         raise NotImplementedError()
+
+    # start a new wandb run to track this script
+    wandb.init(
+        project="madi",
+        config=vars(args),
+        name=f"UR5-{args.algorithm}-seed{args.seed}-batch{args.batch_size}-{args.description}",
+        entity="gauthamv",
+        mode=args.wandb_mode,
+    )
 
     # For the overlay augmentation
     if args.strong_augment == 'overlay':
