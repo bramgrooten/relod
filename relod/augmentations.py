@@ -93,7 +93,11 @@ def _get_places_batch(batch_size):
 
 
 def random_shift(imgs, pad=4):
-    """Vectorized random shift, imgs: (B,C,H,W), pad: #pixels"""
+    """Vectorized random shift, imgs: (B,C,H,W), pad: #pixels
+    Should be different for each image in the batch:
+    https://github.com/kornia/kornia/issues/1559#issuecomment-1033762532
+    https://kornia.readthedocs.io/en/latest/augmentation.module.html#kornia.augmentation.RandomCrop
+    """
     _, _, h, w = imgs.shape
     imgs = F.pad(imgs, (pad, pad, pad, pad), mode='replicate')
     return kornia.augmentation.RandomCrop((h, w))(imgs)
