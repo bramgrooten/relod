@@ -64,6 +64,7 @@ class SGQNLearner(SACRADLearner):
         pred_attrib, aux_loss = self._compute_attribution_loss(s_tilde, actions, mask)
         aux_loss.backward()
         self._aux_optimizer.step()
+        return {'train/aux_loss': aux_loss.item()}
 
     def _update_critic(self, images, proprioceptions, actions, rewards, next_images, next_proprioceptions, dones):
         with torch.no_grad():
@@ -93,11 +94,7 @@ class SGQNLearner(SACRADLearner):
         self._critic_optimizer.zero_grad()
         critic_loss.backward()
         self._critic_optimizer.step()
-
-        critic_stats = {
-            'train/critic_loss': critic_loss.item()
-        }
-        return critic_stats
+        return {'train/critic_loss': critic_loss.item()}
 
     def _update(self, images, propris, actions, rewards, next_images, next_propris, dones):
         tic = time.time()
@@ -120,7 +117,8 @@ class SGQNLearner(SACRADLearner):
 
         # SGQN specific update
         if self._num_updates % self._args.aux_update_freq == 0:
-            self._update_aux(images, propris, actions)
+            aux_stats = self._update_aux(images, propris, actions)
+            stats = {**stats, **aux_stats}
 
         stats['train/batch_reward'] = rewards.mean().item()
         stats['train/num_updates'] = self._num_updates
