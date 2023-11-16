@@ -319,15 +319,15 @@ class AttributionPredictor(nn.Module):
 class AttributionDecoder(nn.Module):
     def __init__(self, action_shape, emb_dim=100):
         super().__init__()
-        self.proj = nn.Linear(in_features=emb_dim+action_shape, out_features=14112)
-        self.conv1 = nn.Conv2d(in_channels=32, out_channels=128, kernel_size=3, padding=1)
+        self.proj = nn.Linear(in_features=emb_dim+action_shape, out_features=14080)  # old: 32*21*21 = 14112)
+        self.conv1 = nn.Conv2d(in_channels=16, out_channels=128, kernel_size=3, padding=1)
         self.relu = nn.ReLU()
         self.conv2 = nn.Conv2d(in_channels=128, out_channels=64, kernel_size=3, padding=1)
         self.conv3 = nn.Conv2d(in_channels=64, out_channels=9, kernel_size=3, padding=1)
 
     def forward(self, x, action):
         x = torch.cat([x, action], dim=1)
-        x = self.proj(x).view(-1, 32, 21, 21)
+        x = self.proj(x).view(-1, 16, 22, 40)  # 16*22*40 = 14080. 32*21*21 = 14112. Num channels reduced to 16, to keep the same number of params in proj(x) roughly.
         x = self.relu(x)
         x = self.conv1(x)
         x = F.upsample(x, scale_factor=2)
@@ -336,6 +336,8 @@ class AttributionDecoder(nn.Module):
         x = F.upsample(x, scale_factor=2)
         x = self.relu(x)
         x = self.conv3(x)
+        # now the size is (batch, 9, 88, 160). We need (batch, 9, 90, 160) so we pad with 0s
+        x = F.pad(x, (0, 0, 1, 1))
         return x
 
 
