@@ -19,10 +19,13 @@ class SGQNLearner(SACRADLearner):
         assert performer != None, "SGQN needs the performer to be SGQNPerformer"
         assert 'conv' in self._args.net_params, "SGQN needs image input"
 
-        self.attribution_predictor = AttributionPredictor(self._args.action_shape[0], self._critic.encoder).to(self._args.device)
         self._init_optimizers()
 
     def _init_optimizers(self):
+        # trying to put it here instead of in __init__ to debug weird error saying:
+        # AttributeError: 'SGQNLearner' object has no attribute 'attribution_predictor'
+        self.attribution_predictor = AttributionPredictor(self._args.action_shape[0], self._critic.encoder).to(self._args.device)
+
         self._actor_optimizer = torch.optim.Adam(
             self._actor.parameters(), lr=self._args.actor_lr, betas=(0.9, 0.999))
         self._critic_optimizer = torch.optim.Adam(
