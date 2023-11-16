@@ -311,8 +311,8 @@ class AttributionPredictor(nn.Module):
         self.encoder = encoder
         self.decoder = AttributionDecoder(action_shape, encoder.latent_dim)
 
-    def forward(self, x, action):
-        x = self.encoder(x)
+    def forward(self, x, proprioceptions, action):
+        x = self.encoder(x, proprioceptions)
         return self.decoder(x, action)
 
 

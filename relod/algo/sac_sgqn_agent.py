@@ -50,9 +50,9 @@ class SGQNLearner(SACRADLearner):
             mask.append((attributions >= q[:, None, None]).unsqueeze(1).repeat(1, 3, 1, 1))
         return torch.cat(mask, dim=1)
 
-    def _compute_attribution_loss(self, images, actions, mask):
+    def _compute_attribution_loss(self, images, proprioceptions, actions, mask):
         mask = mask.float()
-        attrib = self.attribution_predictor(images.detach(), actions.detach())
+        attrib = self.attribution_predictor(images.detach(), proprioceptions.detach(), actions.detach())
         aux_loss = F.binary_cross_entropy_with_logits(attrib, mask.detach())
         return attrib, aux_loss
 
@@ -63,7 +63,7 @@ class SGQNLearner(SACRADLearner):
 
         s_tilde = strong_augment(images, self._args.strong_augment)
         self._aux_optimizer.zero_grad()
-        pred_attrib, aux_loss = self._compute_attribution_loss(s_tilde, actions, mask)
+        pred_attrib, aux_loss = self._compute_attribution_loss(s_tilde, propris, actions, mask)
         aux_loss.backward()
         self._aux_optimizer.step()
         return {'train/aux_loss': aux_loss.item()}
