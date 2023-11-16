@@ -20,10 +20,6 @@ class SGQNLearner(SACRADLearner):
         assert 'conv' in self._args.net_params, "SGQN needs image input"
 
         self.attribution_predictor = AttributionPredictor(self._args.action_shape[0], self._critic.encoder).to(self._args.device)
-        self._aux_optimizer = torch.optim.Adam(
-            self.attribution_predictor.parameters(),
-            lr=self._args.aux_lr,
-            betas=(0.9, 0.999))
         self._init_optimizers()
 
     def _init_optimizers(self):
@@ -34,6 +30,8 @@ class SGQNLearner(SACRADLearner):
             weight_decay=self._args.critic_weight_decay)  # SGQN needs weight decay on critic
         self._log_alpha_optimizer = torch.optim.Adam(
             [self._log_alpha], lr=self._args.alpha_lr, betas=(0.5, 0.999))
+        self._aux_optimizer = torch.optim.Adam(
+            self.attribution_predictor.parameters(), lr=self._args.aux_lr, betas=(0.9, 0.999))
 
     def _compute_attribution(self, images, proprioceptions, actions):
         model = ModelWrapper(self._critic, propris=proprioceptions, action=actions)
@@ -56,6 +54,7 @@ class SGQNLearner(SACRADLearner):
         return attrib, aux_loss
 
     def _update_aux(self, images, propris, actions):
+        """Updates the auxiliary network of SGQN: the AttributionPredictor."""
         obs_grad = self._compute_attribution(images, propris, actions.detach())
         mask = self._compute_attribution_mask(obs_grad, self._args.sgqn_quantile)
 
