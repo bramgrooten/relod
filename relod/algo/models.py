@@ -5,6 +5,7 @@ import torch.nn.functional as F
 from torch.nn import Parameter
 from relod.utils import random_augment
 
+
 def weight_init(m):
     """Custom weight init for Conv2D and Linear layers."""
     if isinstance(m, nn.Linear):
@@ -22,6 +23,7 @@ def weight_init(m):
 
 def conv_out_size(input_size, kernel_size, stride, padding=0):
     return ((input_size - kernel_size + 2 * padding) // stride) + 1
+
 
 class SpatialSoftmax(torch.nn.Module):
     def __init__(self, height, width, channel, temperature=None, data_format='NCHW'):
@@ -61,6 +63,7 @@ class SpatialSoftmax(torch.nn.Module):
 
         return feature_keypoints
 
+
 class EncoderModel(nn.Module):
     """Convolutional encoder of pixels observations."""
     def __init__(self, image_shape, proprioception_shape, net_params, rad_offset, spatial_softmax=True):
@@ -90,7 +93,6 @@ class EncoderModel(nn.Module):
 
         else:
             raise NotImplementedError('Invalid observation combination')
-        
 
     def init_conv(self, image_shape, net_params):
         conv_params = net_params['conv']
@@ -139,10 +141,12 @@ class EncoderModel(nn.Module):
         else:
             raise NotImplementedError('Invalid encoder type')
 
+
 def gaussian_logprob(noise, log_std):
     """Compute Gaussian log probability."""
     residual = (-0.5 * noise.pow(2) - log_std).sum(-1, keepdim=True)
     return residual - 0.5 * np.log(2 * np.pi) * noise.size(-1)
+
 
 def squash(mu, pi, log_pi):
     """Apply squashing function.
@@ -155,8 +159,10 @@ def squash(mu, pi, log_pi):
         log_pi -= torch.log(F.relu(1 - pi.pow(2)) + 1e-6).sum(-1, keepdim=True)
     return mu, pi, log_pi
 
+
 LOG_STD_MIN = -10
 LOG_STD_MAX = 10
+
 
 class ActorModel(nn.Module):
     """MLP actor network."""
@@ -213,6 +219,7 @@ class ActorModel(nn.Module):
         mu, pi, log_pi = squash(mu, pi, log_pi)
         return mu, pi, log_pi, log_std
 
+
 class QFunction(nn.Module):
     """MLP for q-function."""
     def __init__(self, latent_dim, action_dim, net_params):
@@ -235,10 +242,10 @@ class QFunction(nn.Module):
         
         return self.trunk(latent_actions)
 
+
 class CriticModel(nn.Module):
     """Critic network, employes two q-functions."""
-    def __init__(
-        self, image_shape, proprioception_shape, action_dim, net_params, rad_offset):
+    def __init__(self, image_shape, proprioception_shape, action_dim, net_params, rad_offset):
         super().__init__()
 
         self.encoder = EncoderModel(image_shape, proprioception_shape, net_params, rad_offset)
@@ -297,3 +304,47 @@ class MaskerNet(nn.Module):
         x = x / 255.
         return self.layers(x)
 
+
+class AttributionPredictor(nn.Module):
+    def __init__(self, action_shape, encoder):
+        super().__init__()
+        self.encoder = encoder
+        self.decoder = AttributionDecoder(action_shape, encoder.latent_dim)
+
+    def forward(self, x, action):
+        x = self.encoder(x)
+        return self.decoder(x, action)
+
+
+class AttributionDecoder(nn.Module):
+    def __init__(self, action_shape, emb_dim=100):
+        super().__init__()
+        self.proj = nn.Linear(in_features=emb_dim+action_shape, out_features=14112)
+        self.conv1 = nn.Conv2d(in_channels=32, out_channels=128, kernel_size=3, padding=1)
+        self.relu = nn.ReLU()
+        self.conv2 = nn.Conv2d(in_channels=128, out_channels=64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(in_channels=64, out_channels=9, kernel_size=3, padding=1)
+
+    def forward(self, x, action):
+        x = torch.cat([x, action], dim=1)
+        x = self.proj(x).view(-1, 32, 21, 21)
+        x = self.relu(x)
+        x = self.conv1(x)
+        x = F.upsample(x, scale_factor=2)
+        x = self.relu(x)
+        x = self.conv2(x)
+        x = F.upsample(x, scale_factor=2)
+        x = self.relu(x)
+        x = self.conv3(x)
+        return x
+
+
+class ModelWrapper(torch.nn.Module):
+    def __init__(self, model, propris, action):
+        super(ModelWrapper, self).__init__()
+        self.model = model
+        self.propris = propris
+        self.action = action
+
+    def forward(self, obs):
+        return self.model(obs, self.propris, self.action)[0]

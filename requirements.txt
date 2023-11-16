@@ -70,6 +70,7 @@ zipp==3.6.0
 wandb
 screeninfo
 kornia # (==0.6.8 used)
+captum # (==0.6.0 used)
 ## to get pytorch with cuda working:
 # pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
 ## with conda maybe:

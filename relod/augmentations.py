@@ -15,11 +15,13 @@ def strong_augment(obs, augm_type, overlay_alpha=0.5):
     if augm_type == 'conv':
         return random_conv(obs.clone())
     elif augm_type == 'overlay':
-      return random_overlay(obs.clone(), alpha=overlay_alpha)
+        return random_overlay(obs.clone(), alpha=overlay_alpha)
+    elif augm_type == 'none':
+        return obs.clone()
     # elif augm_type == 'splice':
     #   return random_overlay(obs.clone(), method='splice')
     else:
-        raise NotImplementedError('--augment must be one of [conv, overlay]')
+        raise NotImplementedError('--augment must be one of [conv, overlay, none]')
 
 
 def random_conv(x):

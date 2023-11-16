@@ -14,8 +14,9 @@ from relod.algo.comm import MODE
 from relod.algo.local_wrapper import LocalWrapper
 from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
 from relod.algo.sac_drq_agent import SACDrQLearner, SACDrQPerformer
-from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 from relod.algo.sac_svea_agent import SVEALearner, SVEAPerformer
+from relod.algo.sac_sgqn_agent import SGQNLearner, SGQNPerformer
+from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 from relod.envs.visual_ur5_reacher.configs.ur5_config import config
 from relod.envs.visual_ur5_min_time_reacher.env import VisualReacherEnv, VisualReacherMinTimeEnv, MonitorTarget
 from relod.envs.visual_ur5_min_time_reacher.env_vid import VideoPlayer
@@ -72,7 +73,7 @@ def parse_args():
     parser.add_argument('--replay_buffer_capacity', default=100000, type=int)
     parser.add_argument('--rad_offset', default=0.01, type=float, help="Offset for RAD. Default is 0.01. Will be set to 0 when running SAC")
     # train
-    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['sac', 'rad', 'madi', 'svea', 'drq']")
+    parser.add_argument('--algorithm', default='rad', type=str, help="Algorithms in ['sac', 'rad', 'madi', 'svea', 'drq', 'sgqn']")
     parser.add_argument('--init_steps', default=1000, type=int) 
     parser.add_argument('--env_steps', default=100050, type=int)
     parser.add_argument('--batch_size', default=128, type=int)
@@ -104,6 +105,11 @@ def parse_args():
     parser.add_argument('--anneal_masker_lr', default='none', type=str, help="['none', 'cosine', 'cosine10k']")
     parser.add_argument('--when_augm', default='before', type=str,
                         help="When to augment. Before or after masking (or both)", choices=['before', 'after', 'both'])
+    # sgqn algorithm
+    parser.add_argument('--sgqn_quantile', default=0.95, type=float)   # see Table 3 of SGQN paper: https://arxiv.org/pdf/2209.09203.pdf
+    parser.add_argument('--aux_lr', default=3e-4, type=float)
+    parser.add_argument('--aux_update_freq', default=2, type=int)
+    parser.add_argument('--critic_weight_decay', default=1e-5, type=float)  # only used when --algorithm is sgqn
     # agent
     parser.add_argument('--remote_ip', default='localhost', type=str)
     parser.add_argument('--port', default=9876, type=int)
@@ -251,6 +257,9 @@ def main():
         print("Running DrQ: rad_offset is now set to 0 (overridden if it was not 0 already)")
         agent.init_performer(SACDrQPerformer, args)
         agent.init_learner(SACDrQLearner, args, agent.performer)
+    elif args.algorithm == 'sgqn':
+        agent.init_performer(SGQNPerformer, args)
+        agent.init_learner(SGQNLearner, args, agent.performer)
     else:
         raise NotImplementedError()
 
