@@ -83,35 +83,26 @@
 #     current_seed=$((init_seed + i))
 #     python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-runs"
 # done
-# init_seed=4020
-# repeats=5
-# for ((i=0; i<$repeats; i++)); do
-#     current_seed=$((init_seed + i))
-#     python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-sparse-rew" --use_sparse_reward --env_steps 200100
-# done
-
-
-
-init_seed=4120
+init_seed=4200
 repeats=5
 for ((i=0; i<$repeats; i++)); do
     current_seed=$((init_seed + i))
-    python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "sgqn95-runs"
+    python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-sparse-rew" --use_sparse_reward --env_steps 200100
 done
 
 
-python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --sgqn_quantile 0.90 --work_dir "/home/bgrooten/code/results/" --seed 4130 --description "sgqn90"
-python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --sgqn_quantile 0.96 --work_dir "/home/bgrooten/code/results/" --seed 4131 --description "sgqn96"
-python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --sgqn_quantile 0.97 --work_dir "/home/bgrooten/code/results/" --seed 4132 --description "sgqn97"
-python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --sgqn_quantile 0.98 --work_dir "/home/bgrooten/code/results/" --seed 4133 --description "sgqn98"
-python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --sgqn_quantile 0.98 --work_dir "/home/bgrooten/code/results/" --seed 4134 --description "sgqn99"
 
-
-init_seed=4140
-repeats=5
-for ((i=0; i<$repeats; i++)); do
-    current_seed=$((init_seed + i))
-    python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "sgqn95-sparse-rew" --use_sparse_reward --env_steps 200100
-done
+#init_seed=4120
+#repeats=5
+#for ((i=0; i<$repeats; i++)); do
+#    current_seed=$((init_seed + i))
+#    python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "sgqn95-runs"
+#done
+#init_seed=4140
+#repeats=5
+#for ((i=0; i<$repeats; i++)); do
+#    current_seed=$((init_seed + i))
+#    python task_ur5_visual_reacher.py --algorithm sgqn --strong_augment overlay --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "sgqn95-sparse-rew" --use_sparse_reward --env_steps 200100
+#done
 
 
