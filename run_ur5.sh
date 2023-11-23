@@ -83,12 +83,12 @@
 #     current_seed=$((init_seed + i))
 #     python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-runs"
 # done
-init_seed=4200
-repeats=5
-for ((i=0; i<$repeats; i++)); do
-    current_seed=$((init_seed + i))
-    python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-sparse-rew" --use_sparse_reward --env_steps 200100
-done
+# init_seed=4200
+# repeats=5
+# for ((i=0; i<$repeats; i++)); do
+#     current_seed=$((init_seed + i))
+#     python task_ur5_visual_reacher.py --algorithm drq --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "drq-sparse-rew" --use_sparse_reward --env_steps 200100
+# done
 
 
 
@@ -106,3 +106,15 @@ done
 #done
 
 
+init_seed=4250
+repeats=5
+for ((i=0; i<$repeats; i++)); do
+   current_seed=$((init_seed + i))
+   python task_ur5_visual_reacher.py --algorithm soda --strong_augment overlay --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "soda-runs"
+done
+init_seed=4260
+repeats=5
+for ((i=0; i<$repeats; i++)); do
+   current_seed=$((init_seed + i))
+   python task_ur5_visual_reacher.py --algorithm soda --strong_augment overlay --work_dir "/home/bgrooten/code/results/" --seed $current_seed --description "soda-sparse-rew" --use_sparse_reward --env_steps 200100
+done
