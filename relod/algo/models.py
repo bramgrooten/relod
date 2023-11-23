@@ -309,7 +309,7 @@ class AttributionPredictor(nn.Module):
     def __init__(self, action_shape, encoder):
         super().__init__()
         self.encoder = encoder
-        self.decoder = AttributionDecoder(action_shape, encoder.latent_dim)
+        self.decoder = AttributionDecoder(action_shape, encoder.latent_dim)  # encoder.latent_dim = 79 (for UR5)
 
     def forward(self, x, proprioceptions, action):
         x = self.encoder(x, proprioceptions)
@@ -350,3 +350,30 @@ class ModelWrapper(torch.nn.Module):
 
     def forward(self, obs):
         return self.model(obs, self.propris, self.action)[0]
+
+
+class SODAMLP(nn.Module):
+    def __init__(self, in_dim, hidden_dim, out_dim):
+        super().__init__()
+        self.out_dim = out_dim
+        self.mlp = nn.Sequential(
+            nn.Linear(in_dim, hidden_dim),
+            nn.BatchNorm1d(hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, out_dim)
+        )
+        self.apply(weight_init)
+
+    def forward(self, x):
+        return self.mlp(x)
+
+
+class SODAPredictor(nn.Module):
+    def __init__(self, encoder, hidden_dim):
+        super().__init__()
+        self.encoder = encoder
+        self.mlp = SODAMLP(encoder.latent_dim, hidden_dim, encoder.latent_dim)
+        self.apply(weight_init)
+
+    def forward(self, images, propris):
+        return self.mlp(self.encoder(images, propris))
