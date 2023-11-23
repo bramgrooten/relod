@@ -16,7 +16,7 @@ from relod.algo.sac_rad_agent import SACRADLearner, SACRADPerformer
 from relod.algo.sac_drq_agent import SACDrQLearner, SACDrQPerformer
 from relod.algo.sac_svea_agent import SVEALearner, SVEAPerformer
 from relod.algo.sac_sgqn_agent import SGQNLearner, SGQNPerformer
-from relod.algo.sac_sgqn_agent import SODALearner, SODAPerformer
+from relod.algo.sac_soda_agent import SODALearner, SODAPerformer
 from relod.algo.sac_madi_agent import MaDiLearner, MaDiPerformer
 from relod.envs.visual_ur5_reacher.configs.ur5_config import config
 from relod.envs.visual_ur5_min_time_reacher.env import VisualReacherEnv, VisualReacherMinTimeEnv, MonitorTarget
