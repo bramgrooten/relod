@@ -25,24 +25,14 @@ class SODALearner(SACRADLearner):
         self.soda_predictor = SODAPredictor(self._critic.encoder, self._args.soda_projection_dim).to(self._args.device)
         self.soda_predictor_target = deepcopy(self.soda_predictor)
 
-        self._init_optimizers()
+        self._aux_optimizer = torch.optim.Adam(
+            self.soda_predictor.parameters(), lr=self._args.aux_lr, betas=(0.9, 0.999))
         self.train()
 
     def train(self, is_training=True):
         self._performer.train(is_training)
         self.soda_predictor.train(is_training)
         self.is_training = is_training
-
-    def _init_optimizers(self):
-        self._actor_optimizer = torch.optim.Adam(
-            self._actor.parameters(), lr=self._args.actor_lr, betas=(0.9, 0.999))
-        self._critic_optimizer = torch.optim.Adam(
-            self._critic.parameters(), lr=self._args.critic_lr, betas=(0.9, 0.999),
-            weight_decay=self._args.critic_weight_decay)  # SGQN needs weight decay on critic
-        self._log_alpha_optimizer = torch.optim.Adam(
-            [self._log_alpha], lr=self._args.alpha_lr, betas=(0.5, 0.999))
-        self._aux_optimizer = torch.optim.Adam(
-            self.soda_predictor.parameters(), lr=self._args.aux_lr, betas=(0.9, 0.999))
 
     def compute_soda_loss(self, x0, x1, propris):
         h0 = self.soda_predictor(x0, propris)
